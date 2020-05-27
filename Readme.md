@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Evgeniya Tikhonova](https://up.htmlacademy.ru/javascript/20/user/1033021).
-* Наставник: `Неизвестно`.
+* Наставник: `Яна Казанина` (https://up.htmlacademy.ru/javascript/20/user/1275245).
 
 ---
 
