@@ -1,8 +1,8 @@
 'use strict';
 
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth;
-var PIN_WIDTH = 50;
-var PIN_HEIGHT = 70;
+//var PIN_WIDTH = 50;
+//var PIN_HEIGHT = 70;
 var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
   'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
   'img/avatars/user08.png'];
