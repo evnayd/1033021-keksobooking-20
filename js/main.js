@@ -1,32 +1,23 @@
 'use strict';
 
-var MAP_WIDTH = 1200;
+var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
+var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
+  'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
+  'img/avatars/user08.png'];
+var TITLE_LIST = ['Дворец', 'Квартира', 'Дом', 'Бунгало'];
+var TYPE_LIST = ['palace', 'flat', 'house', 'bungalo'];
+var CHECKIN_LIST = ['12:00', '13:00', '14:00'];
+var CHECKOUT_LIST = ['12:00', '13:00', '14:00'];
+var FEATERS_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var PICS_LIST = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
+var PIN_LIST = [];
+var DESCRIPTION_LIST = ['cozy place', 'beutiful view', 'modern design'];
+var PINS_NUMBER = 8;
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
-
-/* находим шаблон, в который будем копировать и элемент, в который будем вставлять похожие пины
-var mapPinsField = document.querySelector('.map__pins');
-var mapPInTemplate = document.querySelector('#pin')
-   .content
-   .querySelector('.map__pins');
-
-   for (var i = 0; i < 8; i++) {
-    var pinElement = mapPInTemplate.cloneNode(true);
-    mapPinsField.appendChild(pinElement);
-  }*/
-
-// массивы значений для случайного пина:
-var avatarsList = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
-  'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
-  'img/avatars/user08.png'];
-var titleList = ['Дворец', 'Квартира', 'Дом', 'Бунгало'];
-var typeList = ['palace', 'flat', 'house', 'bungalo'];
-var checkInList = ['12:00', '13:00', '14:00'];
-var checkOutList = ['12:00', '13:00', '14:00'];
-var featersList = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-var picsList = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
-var pinList = [];
 
 // функция, которая возвращает случайный элемент массива
 var getRandomElement = function (arr) {
@@ -38,40 +29,48 @@ var getRandomElement = function (arr) {
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-
 // заводим объекты с описанием жилья
-
-var getSimilarPins = function () {
-  var i = pinList[i];
-  var x = getRandomNumber(0, MAP_WIDTH);
-  var y = getRandomNumber(130, 630);
-  for (i = 0; i < 8; i++) {
-    var similarPin = {
+var getRandomPins = function () {
+  var i = PIN_LIST[i];
+  var locationX = getRandomNumber(0, MAP_WIDTH);
+  var locationY = getRandomNumber(130, 630);
+  for (i = 0; i < PINS_NUMBER; i++) {
+    var randomPin = {
       'author': {
-        'avatar': getRandomElement(avatarsList)
+        'avatar': getRandomElement(AVATAR_LIST)
       },
       'offer': {
-        'title': getRandomElement(titleList),
-        'address': x + ', ' + y,
+        'title': getRandomElement(TITLE_LIST),
+        'address': locationX + ', ' + locationY,
         'price': getRandomNumber(10000, 50000),
-        'type': getRandomElement(typeList),
+        'type': getRandomElement(TYPE_LIST),
         'rooms': getRandomNumber(1, 3),
         'guests': getRandomNumber(0, 2),
-        'checkin': getRandomElement(checkInList),
-        'checkout': getRandomElement(checkOutList),
-        'features': getRandomElement(featersList),
-        'description': '',
-        'photos': getRandomElement(picsList),
+        'checkin': getRandomElement(CHECKIN_LIST),
+        'checkout': getRandomElement(CHECKOUT_LIST),
+        'features': getRandomElement(FEATERS_LIST),
+        'description': getRandomElement(DESCRIPTION_LIST),
+        'photos': getRandomElement(PICS_LIST)
       },
       'location': {
-        'x': x,
-        'y': y
+        'x': locationX,
+        'y': locationY
       }
     };
   }
-  return similarPin;
+  return randomPin;
 };
 
-getSimilarPins();
+getRandomPins(8);
+// var pins = getRandomPins([]);
+var pinField = document.querySelector('.map__pins');
+var pinTemplate = document.querySelector('#pin')
+  .content
+  .querySelector('.map__pin');
+
+for (var i = 0; i < PINS_NUMBER; i++) {
+  var thatPin = pinTemplate.cloneNode(true);
+  pinField.appendChild(thatPin);
+}
 
 
