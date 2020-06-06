@@ -1,8 +1,8 @@
 'use strict';
 
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth;
-//var PIN_WIDTH = 50;
-//var PIN_HEIGHT = 70;
+var PIN_WIDTH = 50;
+var PIN_HEIGHT = 70;
 var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
   'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
   'img/avatars/user08.png'];
@@ -34,7 +34,7 @@ var getRandomPins = function () {
   var i = PIN_LIST[i];
   var locationX = getRandomNumber(0, MAP_WIDTH);
   var locationY = getRandomNumber(130, 630);
-  for (i = 0; i < PINS_NUMBER; i++) {
+  for (i = 0; i <= PINS_NUMBER; i++) {
     var randomPin = {
       'author': {
         'avatar': getRandomElement(AVATAR_LIST)
@@ -57,20 +57,41 @@ var getRandomPins = function () {
         'y': locationY
       }
     };
+    PIN_LIST.push(randomPin);
   }
-  return randomPin;
+  return PIN_LIST;
 };
 
 getRandomPins(8);
-// var pins = getRandomPins([]);
+
+// заполняем пин
+
+var pins = getRandomPins();
 var pinField = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 
-for (var i = 0; i < PINS_NUMBER; i++) {
-  var thatPin = pinTemplate.cloneNode(true);
-  pinField.appendChild(thatPin);
-}
+var createNewPin = function (data) {
+  var pinElement = pinTemplate.cloneNode(true);
+  var pinPicture = pinElement.querySelector('img');
 
+  pinElement.style.left = data.location.x - PIN_WIDTH / 2 + 'px';
+  pinElement.style.top = data.location.y - PIN_HEIGHT + 'px';
 
+  pinPicture.src = data.author.avatar;
+  pinPicture.alt = data.offer.title;
+
+  return pinElement;
+};
+
+// рисуем пины
+var renderPins = function () {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < pins.length; i++) {
+    fragment.appendChild(createNewPin(pins[i]));
+  }
+  pinField.appendChild(fragment);
+};
+
+renderPins();
