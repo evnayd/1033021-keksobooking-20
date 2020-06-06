@@ -16,6 +16,8 @@ var PICS_LIST = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o
 var PIN_LIST = [];
 var DESCRIPTION_LIST = ['cozy place', 'beutiful view', 'modern design'];
 var PINS_NUMBER = 8;
+var MIN_Y = 130;
+var MAX_Y = 630;
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -33,16 +35,14 @@ var getRandomNumber = function (min, max) {
 // заводим объекты с описанием жилья
 var getRandomPins = function () {
   var i = PIN_LIST[i];
-  var locationX = getRandomNumber(GAP, MAP_WIDTH - GAP);
-  var locationY = getRandomNumber(130, 630);
-  for (i = 0; i <= PINS_NUMBER; i++) {
+  for (i = 0; i < PINS_NUMBER; i++) {
     var randomPin = {
       'author': {
         'avatar': getRandomElement(AVATAR_LIST)
       },
       'offer': {
         'title': getRandomElement(TITLE_LIST),
-        'address': locationX + ', ' + locationY,
+        'address': getRandomNumber(GAP, MAP_WIDTH - GAP) + ', ' + getRandomNumber(MIN_Y, MAX_Y),
         'price': getRandomNumber(10000, 50000),
         'type': getRandomElement(TYPE_LIST),
         'rooms': getRandomNumber(1, 3),
@@ -54,8 +54,8 @@ var getRandomPins = function () {
         'photos': getRandomElement(PICS_LIST)
       },
       'location': {
-        'x': locationX,
-        'y': locationY
+        'x': getRandomNumber(GAP, MAP_WIDTH - GAP),
+        'y': getRandomNumber(MIN_Y, MAX_Y),
       }
     };
     PIN_LIST.push(randomPin);
@@ -63,10 +63,9 @@ var getRandomPins = function () {
   return PIN_LIST;
 };
 
-getRandomPins(8);
+// getRandomPins(8);
 
 // находим шаблон и куда его будем копировать
-
 
 var pinField = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin')
@@ -74,7 +73,6 @@ var pinTemplate = document.querySelector('#pin')
   .querySelector('.map__pin');
 
 // заполняем пин информацией
-
 var createNewPin = function (data) {
 
   var pinElement = pinTemplate.cloneNode(true);
