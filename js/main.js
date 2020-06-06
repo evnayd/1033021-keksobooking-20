@@ -1,5 +1,6 @@
 'use strict';
 
+var GAP = 20;
 var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
@@ -32,7 +33,7 @@ var getRandomNumber = function (min, max) {
 // заводим объекты с описанием жилья
 var getRandomPins = function () {
   var i = PIN_LIST[i];
-  var locationX = getRandomNumber(0, MAP_WIDTH);
+  var locationX = getRandomNumber(GAP, MAP_WIDTH - GAP);
   var locationY = getRandomNumber(130, 630);
   for (i = 0; i <= PINS_NUMBER; i++) {
     var randomPin = {
@@ -64,15 +65,18 @@ var getRandomPins = function () {
 
 getRandomPins(8);
 
-// заполняем пин
+// находим шаблон и куда его будем копировать
 
-var pins = getRandomPins();
+
 var pinField = document.querySelector('.map__pins');
 var pinTemplate = document.querySelector('#pin')
   .content
   .querySelector('.map__pin');
 
+// заполняем пин информацией
+
 var createNewPin = function (data) {
+
   var pinElement = pinTemplate.cloneNode(true);
   var pinPicture = pinElement.querySelector('img');
 
@@ -86,6 +90,7 @@ var createNewPin = function (data) {
 };
 
 // рисуем пины
+var pins = getRandomPins();
 var renderPins = function () {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < pins.length; i++) {
