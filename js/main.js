@@ -18,6 +18,8 @@ var DESCRIPTION_LIST = ['cozy place', 'beutiful view', 'modern design'];
 var PINS_NUMBER = 8;
 var MIN_Y = 130;
 var MAX_Y = 630;
+var MIN_X = GAP;
+var MAX_X = MAP_WIDTH - GAP;
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -36,13 +38,15 @@ var getRandomNumber = function (min, max) {
 var getRandomPins = function () {
   var i = PIN_LIST[i];
   for (i = 0; i < PINS_NUMBER; i++) {
+    var locationX = getRandomNumber(MIN_X, MAX_X);
+    var locationY = getRandomNumber(MIN_Y, MAX_Y);
     var randomPin = {
       'author': {
         'avatar': getRandomElement(AVATAR_LIST)
       },
       'offer': {
         'title': getRandomElement(TITLE_LIST),
-        'address': getRandomNumber(GAP, MAP_WIDTH - GAP) + ', ' + getRandomNumber(MIN_Y, MAX_Y),
+        'address': locationX + ', ' + locationY,
         'price': getRandomNumber(10000, 50000),
         'type': getRandomElement(TYPE_LIST),
         'rooms': getRandomNumber(1, 3),
@@ -54,8 +58,8 @@ var getRandomPins = function () {
         'photos': getRandomElement(PICS_LIST)
       },
       'location': {
-        'x': getRandomNumber(GAP, MAP_WIDTH - GAP),
-        'y': getRandomNumber(MIN_Y, MAX_Y),
+        'x': locationX,
+        'y': locationY,
       }
     };
     PIN_LIST.push(randomPin);
