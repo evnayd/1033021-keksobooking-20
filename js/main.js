@@ -102,3 +102,45 @@ var renderPins = function () {
 };
 
 renderPins();
+
+
+// домашнее задание номер 9
+var cardTemplate = document.querySelector('#card')
+.content
+.querySelector('.map__card');
+
+
+var getPinCard = function (data) {
+
+  /*var cardTemplate = document.querySelector('#card')
+  .content
+  .querySelector('.map__card');*/
+
+  var cardCopy = cardTemplate.cloneNode(true);
+
+  //var firstPin = pins[0];
+
+  cardCopy.querySelector('.popup__title').textContent = data.offer.title;
+  cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
+  cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
+  /*cardCopy.querySelector('.popup__type').textContent = firstPin.offer.type[
+    flat: Квартира;
+    bungalo : Бунгало;
+    house: Дом;
+    palace: Дворец;
+  ];*/
+  cardCopy.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + firstPin.offer.guests + ' гостей';
+  cardCopy.querySelector('.popup__text--time').textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
+  cardCopy.querySelector('.popup__features').textContent = data.offer.features;
+  cardCopy.querySelector('.popup__description').textContent = data.offer.description;
+  cardCopy.querySelector('.popup__photos').textContent = data.offer.photos;
+  cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
+
+  return cardCopy;
+};
+
+getPinCard();
+
+var newCard = getPinCard(cardTemplate, pins[0]);
+
+pinField.insertBefore(newCard, document.querySelector('.map__filters-container'));
