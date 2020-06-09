@@ -134,8 +134,16 @@ var getPinCard = function (data) {
   return cardCopy;
 };
 
-getPinCard();
+// var newCard = getPinCard(pins[0]);
 
-var newCard = getPinCard(cardTemplate, pins[0]);
+var renderCard = function () {
+  var fragment = document.createDocumentFragment();
+  //for (var i = 0; i < 1; i++) {
+    fragment.appendChild(getPinCard(pins[0]));
+  //}
+  pinField.appendChild(fragment);
+};
 
-pinField.insertBefore(newCard, document.querySelector('.map__filters-container'));
+renderCard();
+
+
