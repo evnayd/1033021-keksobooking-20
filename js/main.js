@@ -1,7 +1,6 @@
 'use strict';
 
 var GAP = 20;
-var MAP_WIDTH = document.querySelector('.map__pins').offsetWidth;
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
 var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
@@ -19,7 +18,8 @@ var PINS_NUMBER = 8;
 var MIN_Y = 130;
 var MAX_Y = 630;
 var MIN_X = GAP;
-var MAX_X = MAP_WIDTH - GAP;
+
+var field = document.querySelector('.map__pins');
 
 var map = document.querySelector('.map');
 map.classList.remove('map--faded');
@@ -38,7 +38,7 @@ var getRandomNumber = function (min, max) {
 var getRandomPins = function () {
   var i = PIN_LIST[i];
   for (i = 0; i < PINS_NUMBER; i++) {
-    var locationX = getRandomNumber(MIN_X, MAX_X);
+    var locationX = getRandomNumber(MIN_X, getRandomNumber(GAP, field.offsetWidth - GAP));
     var locationY = getRandomNumber(MIN_Y, MAX_Y);
     var randomPin = {
       'author': {
@@ -50,12 +50,12 @@ var getRandomPins = function () {
         'price': getRandomNumber(10000, 50000),
         'type': getRandomElement(TYPE_LIST),
         'rooms': getRandomNumber(1, 3),
-        'guests': getRandomNumber(0, 2),
+        'guests': getRandomNumber(1, 2),
         'checkin': getRandomElement(CHECKIN_LIST),
         'checkout': getRandomElement(CHECKOUT_LIST),
         'features': getRandomElement(FEATERS_LIST),
         'description': getRandomElement(DESCRIPTION_LIST),
-        'photos': getRandomElement(PICS_LIST)
+        'photos': PICS_LIST
       },
       'location': {
         'x': locationX,
@@ -67,7 +67,6 @@ var getRandomPins = function () {
   return PIN_LIST;
 };
 
-// getRandomPins(8);
 
 // находим шаблон и куда его будем копировать
 
@@ -103,8 +102,6 @@ var renderPins = function () {
 
 renderPins();
 
-
-// домашнее задание номер 9
 var cardTemplate = document.querySelector('#card')
 .content
 .querySelector('.map__card');
@@ -113,34 +110,41 @@ var cardTemplate = document.querySelector('#card')
 var getPinCard = function (data) {
   var cardCopy = cardTemplate.cloneNode(true);
 
-  // var firstPin = pins[0];
-
   cardCopy.querySelector('.popup__title').textContent = data.offer.title;
   cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
   cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
-  /* cardCopy.querySelector('.popup__type').textContent = firstPin.offer.type[
-    flat: Квартира;
-    bungalo : Бунгало;
-    house: Дом;
-    palace: Дворец;
-  ];*/
+
+  var type = cardCopy.querySelector('.popup__type');
+  if (data.offer.type === 'flat') {
+    type.textContent === 'Квартира';
+  } else if (data.offer.type === 'bungalo') {
+    type.textContent === 'Бунгало';
+  } else if (data.offer.type === 'house') {
+    type.textContent === 'Дом';
+  } else if (data.offer.type === 'palace') {
+    type.textContent === 'Дворец';
+  }
+
   cardCopy.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
   cardCopy.querySelector('.popup__text--time').textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
   cardCopy.querySelector('.popup__features').textContent = data.offer.features;
   cardCopy.querySelector('.popup__description').textContent = data.offer.description;
-  cardCopy.querySelector('.popup__photos').textContent = data.offer.photos;
-  cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
 
+  var cardPhotos = cardCopy.querySelector('.popup__photos').cloneNode(true);
+  for (var j = 0; j < data.offer.photos.length; j++) {
+    var cardPhoto = cardCopy.querySelector('.popup__photos').querySelector('.popup__photo').cloneNode(true);
+    cardPhoto.src = data.offer.photos[j];
+    cardPhotos.appendChild(cardPhoto);
+    cardCopy.appendChild(cardPhotos);
+  }
+
+  cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
   return cardCopy;
 };
 
-// var newCard = getPinCard(pins[0]);
-
 var renderCard = function () {
   var fragment = document.createDocumentFragment();
-  //for (var i = 0; i < 1; i++) {
-    fragment.appendChild(getPinCard(pins[0]));
-  //}
+  fragment.appendChild(getPinCard(pins[0]));
   pinField.appendChild(fragment);
 };
 
