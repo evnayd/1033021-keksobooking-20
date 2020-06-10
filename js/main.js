@@ -10,7 +10,7 @@ var TITLE_LIST = ['Дворец', 'Квартира', 'Дом', 'Бунгало'
 var TYPE_LIST = ['palace', 'flat', 'house', 'bungalo'];
 var CHECKIN_LIST = ['12:00', '13:00', '14:00'];
 var CHECKOUT_LIST = ['12:00', '13:00', '14:00'];
-var FEATERS_LIST = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+var FEATERS_LIST = [' wifi', ' dishwasher', ' parking', ' washer', ' elevator', ' conditioner'];
 var PICS_LIST = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 var PIN_LIST = [];
 var DESCRIPTION_LIST = ['cozy place', 'beutiful view', 'modern design'];
@@ -34,6 +34,18 @@ var getRandomElement = function (arr) {
 var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
+
+//  функция, которая возвращает массив случайной длинны
+var getRandomArray = function (arr) {
+  var randomObject = {};
+  for (var i = 0; i <= getRandomNumber(1, arr.length - 1); i++) {
+    var randomElement = getRandomElement(arr);
+    randomObject[randomElement] = true;
+  }
+
+  return Object.keys(randomObject);
+};
+
 // заводим объекты с описанием жилья
 var getRandomPins = function () {
   var i = PIN_LIST[i];
@@ -53,9 +65,9 @@ var getRandomPins = function () {
         'guests': getRandomNumber(1, 2),
         'checkin': getRandomElement(CHECKIN_LIST),
         'checkout': getRandomElement(CHECKOUT_LIST),
-        'features': getRandomElement(FEATERS_LIST),
+        'features': getRandomArray(FEATERS_LIST),
         'description': getRandomElement(DESCRIPTION_LIST),
-        'photos': PICS_LIST
+        'photos': getRandomArray(PICS_LIST)
       },
       'location': {
         'x': locationX,
