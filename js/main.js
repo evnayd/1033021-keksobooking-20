@@ -142,16 +142,18 @@ var getPinCard = function (data) {
   cardCopy.querySelector('.popup__features').textContent = data.offer.features;
   cardCopy.querySelector('.popup__description').textContent = data.offer.description;
 
-  var cardPhotos = cardCopy.querySelector('.popup__photos');
-
+  var picFragment = document.createDocumentFragment();
   for (var j = 0; j < data.offer.photos.length; j++) {
-  var cardPhoto = cardCopy.querySelector('.popup__photos').querySelector('.popup__photo').cloneNode(true);
-    // var cardPhoto = cardPhotos.querySelector('.popup__photo');
-    // var cardPhoto = cardCopy.querySelector('.popup__photo').cloneNode(true);
+    var cardPhoto = document.createElement('img');
     cardPhoto.src = data.offer.photos[j];
-    cardPhotos.appendChild(cardPhoto);
-    cardCopy.appendChild(cardPhotos);
+    cardPhoto.width = 45;
+    cardPhoto.height = 44;
+    picFragment.appendChild(cardPhoto);
   }
+
+  var cardPhotos = cardCopy.querySelector('.popup__photos');
+  cardPhotos.innerHTML = '';
+  cardPhotos.appendChild(picFragment);
 
   cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
   return cardCopy;
