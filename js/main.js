@@ -22,7 +22,7 @@ var MIN_X = GAP;
 var field = document.querySelector('.map__pins');
 
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
+// map.classList.remove('map--faded');
 
 // функция, которая возвращает случайный элемент массива
 var getRandomElement = function (arr) {
@@ -113,9 +113,9 @@ var renderPins = function () {
   pinField.appendChild(fragment);
 };
 
-renderPins();
+// renderPins();
 
-var cardTemplate = document.querySelector('#card')
+/* var cardTemplate = document.querySelector('#card')
 .content
 .querySelector('.map__card');
 
@@ -165,6 +165,40 @@ var renderCard = function () {
   pinField.appendChild(fragment);
 };
 
-renderCard();
+renderCard();*/
 
+
+/* function check_disable(){
+  let bubu = document.getElementsByTagName('input');
+  for( let i = 0; i < bubu.length; i++ ){
+    bubu[i].setAttribute('disabled', 'disabled');
+    //Или bubu[i].disabled = true;
+  }
+}*/
+
+// map.classList.add('map--faded');
+var formFilters = document.querySelector('.map__filters');
+formFilters.classList.add('ad-form--disabled');
+var formFieldsets = document.querySelectorAll('ad-form__element');
+
+var setDisabled = function () {
+  // var formFieldsets = document.querySelectorAll('ad-form__element');
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].setAttribute('disabled', 'disabled');
+  }
+};
+
+setDisabled();
+
+var form = document.querySelector('.ad-form');
+
+var mainPin = document.querySelector('.map__pin--main');
+mainPin.addEventListener('mousedown', function () {
+  renderPins();
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  formFilters.classList.remove('ad-form--disabled');
+  formFieldsets[i].removeAttribute('disabled');
+
+});
 
