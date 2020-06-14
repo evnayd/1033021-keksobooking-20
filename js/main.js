@@ -194,11 +194,23 @@ var form = document.querySelector('.ad-form');
 
 var mainPin = document.querySelector('.map__pin--main');
 mainPin.addEventListener('mousedown', function () {
+  // if (evt.key === 'Enter') {
+  // evt.preventDefault();
   renderPins();
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   formFilters.classList.remove('ad-form--disabled');
   formFieldsets[i].removeAttribute('disabled');
-
+  // }
 });
 
+mainPin.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    renderPins();
+    map.classList.remove('map--faded');
+    form.classList.remove('ad-form--disabled');
+    formFilters.classList.remove('ad-form--disabled');
+    formFieldsets[i].removeAttribute('disabled');
+  }
+});
