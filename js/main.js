@@ -113,8 +113,6 @@ var renderPins = function () {
   pinField.appendChild(fragment);
 };
 
-// renderPins();
-
 /* var cardTemplate = document.querySelector('#card')
 .content
 .querySelector('.map__card');
@@ -168,21 +166,11 @@ var renderCard = function () {
 renderCard();*/
 
 
-/* function check_disable(){
-  let bubu = document.getElementsByTagName('input');
-  for( let i = 0; i < bubu.length; i++ ){
-    bubu[i].setAttribute('disabled', 'disabled');
-    //Или bubu[i].disabled = true;
-  }
-}*/
-
-// map.classList.add('map--faded');
 var formFilters = document.querySelector('.map__filters');
 formFilters.classList.add('ad-form--disabled');
 var formFieldsets = document.querySelectorAll('ad-form__element');
 
 var setDisabled = function () {
-  // var formFieldsets = document.querySelectorAll('ad-form__element');
   for (var i = 0; i < formFieldsets.length; i++) {
     formFieldsets[i].setAttribute('disabled', 'disabled');
   }
@@ -190,18 +178,39 @@ var setDisabled = function () {
 
 setDisabled();
 
+
 var form = document.querySelector('.ad-form');
 
 var mainPin = document.querySelector('.map__pin--main');
-mainPin.addEventListener('mousedown', function () {
-  // if (evt.key === 'Enter') {
-  // evt.preventDefault();
+var getMainPinAdress = function (data) {
+  mainPin.style.left = data.location.x - PIN_WIDTH / 2;
+  mainPin.style.top = data.location.y - PIN_HEIGHT;
+  return mainPin;
+};
+  // mainPin.style.left = data.location.x - PIN_WIDTH / 2;
+  // mainPin.style.top = data.location.y - PIN_HEIGHT;
+
+var adressInput = document.querySelector('#address');
+
+/* mainPin.addEventListener('mousedown', function (evt) {
+   if (evt.wich === '1') {
+  evt.preventDefault();
   renderPins();
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   formFilters.classList.remove('ad-form--disabled');
-  formFieldsets[i].removeAttribute('disabled');
-  // }
+  // formFieldsets[i].removeAttribute('disabled');
+  adressInput.value = mainPin.style.left + ' ' + mainPin.style.top;
+  }
+});*/
+
+mainPin.addEventListener('mousedown', function () {
+  renderPins();
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  formFilters.classList.remove('ad-form--disabled');
+  // formFieldsets[i].removeAttribute('disabled');
+  adressInput.value = mainPin.style.left + ' ' + mainPin.style.top;
 });
 
 mainPin.addEventListener('keydown', function (evt) {
@@ -211,6 +220,6 @@ mainPin.addEventListener('keydown', function (evt) {
     map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     formFilters.classList.remove('ad-form--disabled');
-    formFieldsets[i].removeAttribute('disabled');
+    // formFieldsets[i].removeAttribute('disabled');
   }
 });
