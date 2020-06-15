@@ -165,7 +165,6 @@ var renderCard = function () {
 
 renderCard();*/
 
-
 var formFilters = document.querySelector('.map__filters');
 formFilters.classList.add('ad-form--disabled');
 var formFieldsets = document.querySelectorAll('ad-form__element');
@@ -201,15 +200,6 @@ mainPin.addEventListener('mousedown', function (evt) {
   }
 });
 
-/* mainPin.addEventListener('mousedown', function () {
-  renderPins();
-  map.classList.remove('map--faded');
-  form.classList.remove('ad-form--disabled');
-  formFilters.classList.remove('ad-form--disabled');
-  // formFieldsets[i].removeAttribute('disabled');
-  adressInput.value = mainPin.style.left + ' ' + mainPin.style.top;
-});*/
-
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
@@ -217,6 +207,6 @@ mainPin.addEventListener('keydown', function (evt) {
     map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     formFilters.classList.remove('ad-form--disabled');
-    // formFieldsets[i].removeAttribute('disabled');
+    formFieldsets[i].removeAttribute('disabled');
   }
 });
