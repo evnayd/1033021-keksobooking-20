@@ -180,33 +180,54 @@ setDisabled();
 var form = document.querySelector('.ad-form');
 
 var mainPin = document.querySelector('.map__pin--main');
-var getMainPinAdress = function (data) {
-  mainPin.style.left = data.location.x - PIN_WIDTH / 2;
-  mainPin.style.top = data.location.y - PIN_HEIGHT;
-  return mainPin;
-};
 
 var adressInput = document.querySelector('#address');
+
+var getWorkStarts = function () {
+  adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
+  renderPins();
+  map.classList.remove('map--faded');
+  form.classList.remove('ad-form--disabled');
+  formFilters.classList.remove('ad-form--disabled');
+  formFieldsets[i].removeAttribute('disabled');
+
+};
 
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
-    renderPins();
-    map.classList.remove('map--faded');
-    form.classList.remove('ad-form--disabled');
-    formFilters.classList.remove('ad-form--disabled');
-    formFieldsets[i].removeAttribute('disabled');
-    adressInput.value = mainPin.style.left + ' ' + mainPin.style.top;
+    getWorkStarts();
   }
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
-    renderPins();
-    map.classList.remove('map--faded');
-    form.classList.remove('ad-form--disabled');
-    formFilters.classList.remove('ad-form--disabled');
-    formFieldsets[i].removeAttribute('disabled');
+    getWorkStarts();
   }
+});
+
+// валидация количества гостей и комнат
+
+var roomNum = document.querySelector('#room_number');
+var guestNum = document.querySelector('#capacity');
+
+var getRoomValidated = function () {
+  if (roomNum.value === '100') {
+    roomNum.setCustomValidity('Это предложение не для гостей');
+  } else if (roomNum.value < guestNum.value) {
+    roomNum.setCustomValidity('Извините, слишком много людей');
+  } else if (roomNum.value > guestNum.value) {
+    roomNum.setCustomValidity('Извините, слишком мало людей');
+  } else {
+    roomNum.setCustomValidity('');
+  }
+};
+
+roomNum.addEventListener('change', function (evt) {
+  getRoomValidated(evt);
+});
+
+guestNum.addEventListener('change', function (evt) {
+  getRoomValidated(evt);
 });
