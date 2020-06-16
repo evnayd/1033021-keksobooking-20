@@ -183,27 +183,28 @@ var mainPin = document.querySelector('.map__pin--main');
 
 var adressInput = document.querySelector('#address');
 
-var getWorkStarts = function () {
+var removeDisabled = function (formFieldset) {
   adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
   renderPins();
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   formFilters.classList.remove('ad-form--disabled');
-  formFieldsets[i].removeAttribute('disabled');
+  formFieldset.removeAttribute('disabled');
 
 };
+
 
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
-    getWorkStarts();
+    removeDisabled();
   }
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
-    getWorkStarts();
+    removeDisabled();
   }
 });
 
@@ -216,18 +217,18 @@ var getRoomValidated = function () {
   if (roomNum.value === '100') {
     roomNum.setCustomValidity('Это предложение не для гостей');
   } else if (roomNum.value < guestNum.value) {
-    roomNum.setCustomValidity('Извините, слишком много людей');
+    roomNum.setCustomValidity('Недостаточно места для выбранного количества гостей');
   } else if (roomNum.value > guestNum.value) {
-    roomNum.setCustomValidity('Извините, слишком мало людей');
+    roomNum.setCustomValidity('Это предложение для большего числа гостей');
   } else {
     roomNum.setCustomValidity('');
   }
 };
 
-roomNum.addEventListener('change', function (evt) {
-  getRoomValidated(evt);
+roomNum.addEventListener('change', function () {
+  getRoomValidated();
 });
 
-guestNum.addEventListener('change', function (evt) {
-  getRoomValidated(evt);
+guestNum.addEventListener('change', function () {
+  getRoomValidated();
 });
