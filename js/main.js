@@ -167,7 +167,7 @@ renderCard();*/
 
 var formFilters = document.querySelector('.map__filters');
 formFilters.classList.add('ad-form--disabled');
-var formFieldsets = document.querySelectorAll('ad-form__element');
+var formFieldsets = document.querySelectorAll('.ad-form__element');
 
 var setDisabled = function () {
   for (var i = 0; i < formFieldsets.length; i++) {
@@ -177,19 +177,27 @@ var setDisabled = function () {
 
 setDisabled();
 
+var removeDisabled = function () {
+  for (var i = 0; i < formFieldsets.length; i++) {
+    formFieldsets[i].removeAttribute('disabled', 'disabled');
+  }
+};
+
+
 var form = document.querySelector('.ad-form');
 
 var mainPin = document.querySelector('.map__pin--main');
 
 var adressInput = document.querySelector('#address');
 
-var removeDisabled = function (formFieldset) {
+// var removeDisabled = function (formFieldset) {
+var activatePage = function () {
   adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
   renderPins();
   map.classList.remove('map--faded');
   form.classList.remove('ad-form--disabled');
   formFilters.classList.remove('ad-form--disabled');
-  formFieldset.removeAttribute('disabled');
+  removeDisabled();
 
 };
 
@@ -197,14 +205,14 @@ var removeDisabled = function (formFieldset) {
 mainPin.addEventListener('mousedown', function (evt) {
   if (evt.button === 0) {
     evt.preventDefault();
-    removeDisabled();
+    activatePage();
   }
 });
 
 mainPin.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     evt.preventDefault();
-    removeDisabled();
+    activatePage();
   }
 });
 
