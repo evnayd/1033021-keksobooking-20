@@ -11,9 +11,9 @@
       fragment.appendChild(window.pin.createNewPin(pins[i]));
     }
     pinField.appendChild(fragment);
-
-    window.map = {
-      renderPins: renderPins
-    };
+  };
+  window.map = {
+    renderPins: renderPins,
+    map: map
   };
 })();

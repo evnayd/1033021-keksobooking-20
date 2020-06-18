@@ -28,7 +28,7 @@
   var activatePage = function () {
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     window.map.renderPins();
-    window.map.classList.remove('map--faded');
+    window.map.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     formFilters.classList.remove('ad-form--disabled');
     removeDisabled();
