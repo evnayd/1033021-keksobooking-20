@@ -2,9 +2,9 @@
 
 (function () {
   var GAP = 20;
-  var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
+  /* var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
     'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
-    'img/avatars/user08.png'];
+    'img/avatars/user08.png'];*/
   var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];
   var TYPE_LIST = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN_LIST = ['12:00', '13:00', '14:00'];
@@ -22,12 +22,12 @@
   var featersList = window.utils.getRandomArray(FEATERS);
   // заводим объекты с описанием жилья
   var getRandomPins = function () {
-    for (var i = 0; i < PINS_NUMBER; i++) {
+    for (var i = 1; i <= PINS_NUMBER; i++) {
       var locationX = window.utils.getRandomNumber(MIN_X, window.utils.getRandomNumber(GAP, field.offsetWidth - GAP));
       var locationY = window.utils.getRandomNumber(MIN_Y, MAX_Y);
       var randomPin = {
         'author': {
-          'avatar': window.utils.getRandomElement(AVATAR_LIST)
+          'avatar': 'img/avatars/user0' + i + '.png'// window.utils.getRandomElement(AVATAR_LIST)
         },
         'offer': {
           'title': window.utils.getRandomElement(TITLE_LIST),
