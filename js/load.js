@@ -1,7 +1,6 @@
 /* 'use strict';
 
 (function () {
-  // var URL = 'https://javascript.pages.academy/keksobooking/data';
   window.load = function (url, onSuccess, onError) {
     var xhr = new XMLHttpRequest();
 
@@ -36,11 +35,15 @@
   window.load = function (onSuccess, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.open('GET', URL);
     xhr.addEventListener('load', function () {
       onSuccess(xhr.response);
     });
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+    xhr.open('GET', URL);
     xhr.send();
   };
 })();
+
 
