@@ -2,9 +2,6 @@
 
 (function () {
   var GAP = 20;
-  /* var AVATAR_LIST = ['img/avatars/user01.png', 'img/avatars/user02.png', 'img/avatars/user03.png',
-    'img/avatars/user04.png', 'img/avatars/user05.png', 'img/avatars/user06.png', 'img/avatars/user07.png',
-    'img/avatars/user08.png'];*/
   var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];
   var TYPE_LIST = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN_LIST = ['12:00', '13:00', '14:00'];
@@ -27,7 +24,7 @@
       var locationY = window.utils.getRandomNumber(MIN_Y, MAX_Y);
       var randomPin = {
         'author': {
-          'avatar': 'img/avatars/user0' + i + '.png'// window.utils.getRandomElement(AVATAR_LIST)
+          'avatar': 'img/avatars/user0' + i + '.png'
         },
         'offer': {
           'title': window.utils.getRandomElement(TITLE_LIST),
