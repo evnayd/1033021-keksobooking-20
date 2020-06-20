@@ -73,4 +73,75 @@
   guestNum.addEventListener('change', function () {
     getRoomValidated();
   });
+
+  // валидация заголовка объявления
+  var adTitle = document.querySelector('#title');
+
+  var getadTitleValidated = function () {
+    if (adTitle.validity.tooShort) {
+      adTitle.setCustomValidity('Заголовок слишком короткий. Минимум: 30 символов.');
+    } else if (adTitle.validity.tooLong) {
+      adTitle.setCustomValidity('Заголовок слишком длинный. Максимум: 100 символов.');
+    } else if (adTitle.validity.valueMissing) {
+      adTitle.setCustomValidity('Обязательное поле');
+    } else {
+      adTitle.setCustomValidity('');
+    }
+  };
+
+  adTitle.addEventListener('change', function () {
+    getadTitleValidated();
+  });
+
+  // валидация время заезда и выезда
+  var timeIn = form.querySelector('#timein');
+  var timeOut = form.querySelector('#timeout');
+
+  var getTimeEqual = function (n1, n2) {
+    n2.value = n1.value;
+  };
+
+  timeIn.addEventListener('change', function () {
+    getTimeEqual(timeIn, timeOut);
+  });
+
+  timeOut.addEventListener('change', function () {
+    getTimeEqual(timeOut, timeIn);
+  });
+
+  // валидация минимальной цены
+
+  var typeOfPlace = form.querySelector('#type');
+  var price = form.querySelector('#price');
+
+  var getadPriceValidated = function () {
+    if (typeOfPlace.value === 'flat') {
+      price.min = '1000';
+    } else if (typeOfPlace.value === 'house') {
+      price.min = '5000';
+    } else if (typeOfPlace.value === 'palace') {
+      price.min = '10000';
+    } else {
+      price.min = '0';
+    }
+  };
+
+  typeOfPlace.addEventListener('change', function () {
+    getadPriceValidated();
+    price.placeholder = price.min;
+  });
+
+  price.addEventListener('invalid', function () {
+    if (price.validity.rangeUnderflow) {
+      price.setCustomValidity('Минимальная цена для данного типа жилья: ' + price.min);
+    } else if (price.validity.rangeOverflow) {
+      price.setCustomValidity('Максимальная цена: ' + price.max);
+    } else if (price.validity.valueMissing) {
+      price.setCustomValidity('Обязательное поле');
+    } else {
+      price.setCustomValidity('');
+    }
+  });
+
 })();
+
