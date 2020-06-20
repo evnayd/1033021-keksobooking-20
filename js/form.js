@@ -25,9 +25,21 @@
 
   var adressInput = document.querySelector('#address');
 
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   var activatePage = function () {
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
-    window.load(window.map.renderPins);
+    window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, errorHandler);
     window.map.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     formFilters.classList.remove('ad-form--disabled');
