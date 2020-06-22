@@ -76,6 +76,7 @@
     } else {
       roomNum.setCustomValidity('');
     }
+
   };
 
   roomNum.addEventListener('change', function () {
@@ -162,12 +163,31 @@
     }
   });
 
-  // чтобы форму было невозможно отправить без валидации
+  var main = document.querySelector('main');
+  var successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
+  var showSuccessMessage = function () {
+    var successPopup = successTemplate.cloneNode(true);
+    main.appendChild(successPopup);
+  };
+
+  var errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+  var showErrorMessage = function () {
+    var errorPopup = errorTemplate.cloneNode(true);
+    main.appendChild(errorPopup);
+  };
 
   var submitButton = form.querySelector('.ad-form__submit');
   var inputs = form.querySelector('#required');
 
-  submitButton.addEventListener('click', function () {
+  // форма отправляется
+
+  /*submitButton.addEventListener('click', function () {
     for (var i = 0; i < inputs.length; i++) {
       var input = inputs[i];
       if (input.checkValidity() === false) {
@@ -178,5 +198,10 @@
         submitButton.setCustomValidity('');
       }
     }
+  });*/
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(form), showSuccessMessage, showErrorMessage);
   });
 })();
