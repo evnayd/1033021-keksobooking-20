@@ -108,7 +108,7 @@
     getadTitleValidated();
   });
 
-  // валидация время заезда и выезда
+  // валидация времени заезда и выезда
   var timeIn = form.querySelector('#timein');
   var timeOut = form.querySelector('#timeout');
 
@@ -163,6 +163,7 @@
     }
   });
 
+  // отрисовываются сообщения об успехе и об ошибке
   var main = document.querySelector('main');
   var successTemplate = document.querySelector('#success')
   .content
@@ -182,24 +183,7 @@
     main.appendChild(errorPopup);
   };
 
-  var submitButton = form.querySelector('.ad-form__submit');
-  var inputs = form.querySelector('#required');
-
   // форма отправляется
-
-  /*submitButton.addEventListener('click', function () {
-    for (var i = 0; i < inputs.length; i++) {
-      var input = inputs[i];
-      if (input.checkValidity() === false) {
-        submitButton.setCustomValidity('Невозможно отправить форму, проверьте обязательные поля');
-      } else if (guestNum.checkValidity() === false) {
-        submitButton.setCustomValidity('Невозможно отправить форму');
-      } else {
-        submitButton.setCustomValidity('');
-      }
-    }
-  });*/
-
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), showSuccessMessage, showErrorMessage);
