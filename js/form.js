@@ -86,6 +86,8 @@
     getRoomValidated();
   });
 
+  getRoomValidated();
+
   // валидация заголовка объявления
   var adTitle = document.querySelector('#title');
 
@@ -109,8 +111,8 @@
   var timeIn = form.querySelector('#timein');
   var timeOut = form.querySelector('#timeout');
 
-  var getTimeEqual = function (n1, n2) {
-    n2.value = n1.value;
+  var getTimeEqual = function (checkInTime, checkoutTime) {
+    checkoutTime.value = checkInTime.value;
   };
 
   timeIn.addEventListener('change', function () {
@@ -136,6 +138,7 @@
     } else {
       price.min = '0';
     }
+    price.max = '1000000';
   };
 
   typeOfPlace.addEventListener('change', function () {
@@ -143,11 +146,15 @@
     price.placeholder = price.min;
   });
 
+  price.addEventListener('change', function () {
+    getadPriceValidated();
+  });
+
   price.addEventListener('invalid', function () {
-    if (price.validity.rangeUnderflow) {
-      price.setCustomValidity('Минимальная цена для данного типа жилья: ' + price.min);
-    } else if (price.validity.rangeOverflow) {
+    if (price.validity.rangeOverflow) {
       price.setCustomValidity('Максимальная цена: ' + price.max);
+    } else if (price.validity.rangeUnderflow) {
+      price.setCustomValidity('Минимальная цена для данного типа жилья: ' + price.min);
     } else if (price.validity.valueMissing) {
       price.setCustomValidity('Обязательное поле');
     } else {
@@ -155,5 +162,21 @@
     }
   });
 
-})();
+  // чтобы форму было невозможно отправить без валидации
 
+  var submitButton = form.querySelector('.ad-form__submit');
+  var inputs = form.querySelector('#required');
+
+  submitButton.addEventListener('click', function () {
+    for (var i = 0; i < inputs.length; i++) {
+      var input = inputs[i];
+      if (input.checkValidity() === false) {
+        submitButton.setCustomValidity('Невозможно отправить форму, проверьте обязательные поля');
+      } else if (guestNum.checkValidity() === false) {
+        submitButton.setCustomValidity('Невозможно отправить форму');
+      } else {
+        submitButton.setCustomValidity('');
+      }
+    }
+  });
+})();
