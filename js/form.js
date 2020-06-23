@@ -46,6 +46,18 @@
     removeDisabled();
   };
 
+  var deActivePage = function () {
+    form.reset();
+    setDisabled();
+    window.map.map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    formFilters.classList.add('ad-form--disabled');form.reset();
+    setDisabled();
+    window.map.map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    formFilters.classList.add('ad-form--disabled');
+  };
+
 
   mainPin.addEventListener('mousedown', function (evt) {
     if (evt.button === 0) {
@@ -169,23 +181,53 @@
   .content
   .querySelector('.success');
 
-  var showSuccessMessage = function () {
-    var successPopup = successTemplate.cloneNode(true);
-    main.appendChild(successPopup);
-  };
-
   var errorTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
+  var successPopup = successTemplate.cloneNode(true);
+  var errorPopup = errorTemplate.cloneNode(true);
+
+  var showSuccessMessage = function () {
+    main.appendChild(successPopup);
+  };
+
+  successPopup.addEventListener('click', function () {
+    successPopup.style.display = 'none';
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 27) {
+      successPopup.style.display = 'none';
+      errorPopup.style.display = 'none';
+    }
+  });
+
   var showErrorMessage = function () {
-    var errorPopup = errorTemplate.cloneNode(true);
     main.appendChild(errorPopup);
   };
 
+  errorPopup.addEventListener('click', function () {
+    errorPopup.style.display = 'none';
+  });
+
+  var errorBtn = errorPopup.querySelector('.error__button');
+  errorBtn.addEventListener('click', function () {
+    errorPopup.style.display = 'none';
+  });
+
+  var resetBtn = form.querySelector('.ad-form__reset');
+  resetBtn.addEventListener('click', function () {
+    form.reset();
+  });
+
   // форма отправляется
+
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), showSuccessMessage, showErrorMessage);
+    deActivePage();
   });
 })();
+
+
