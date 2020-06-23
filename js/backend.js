@@ -37,7 +37,7 @@
     });
 
     xhr.addEventListener('error', function () {
-      onError('Произошла ошибка соединения');
+      onError('Произошла ошибка отправки данных');
     });
 
     xhr.open('POST', 'https://javascript.pages.academy/keksobooking');
