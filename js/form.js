@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var ESCAPE_KEY = 27;
+  var LEFT_BUTTON = 0;
+
   var formFilters = document.querySelector('.map__filters');
   formFilters.classList.add('ad-form--disabled');
   var formFieldsets = document.querySelectorAll('.ad-form__element');
@@ -37,6 +40,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+
   var activatePage = function () {
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, errorHandler);
@@ -46,9 +50,26 @@
     removeDisabled();
   };
 
+  var deletePins = function () {
+    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0; i < allPins.length; i++) {
+      allPins[i].remove();
+    }
+  };
+
+  var deactivationPage = function () {
+    deletePins();
+    form.reset();
+    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
+    setDisabled();
+    window.map.map.classList.add('map--faded');
+    form.classList.add('ad-form--disabled');
+    formFilters.classList.add('ad-form--disabled');
+  };
+
 
   mainPin.addEventListener('mousedown', function (evt) {
-    if (evt.button === 0) {
+    if (evt.button === LEFT_BUTTON) {
       evt.preventDefault();
       activatePage();
     }
@@ -76,6 +97,7 @@
     } else {
       roomNum.setCustomValidity('');
     }
+
   };
 
   roomNum.addEventListener('change', function () {
@@ -85,6 +107,8 @@
   guestNum.addEventListener('change', function () {
     getRoomValidated();
   });
+
+  getRoomValidated();
 
   // валидация заголовка объявления
   var adTitle = document.querySelector('#title');
@@ -105,12 +129,12 @@
     getadTitleValidated();
   });
 
-  // валидация время заезда и выезда
+  // валидация времени заезда и выезда
   var timeIn = form.querySelector('#timein');
   var timeOut = form.querySelector('#timeout');
 
-  var getTimeEqual = function (n1, n2) {
-    n2.value = n1.value;
+  var getTimeEqual = function (checkInTime, checkoutTime) {
+    checkoutTime.value = checkInTime.value;
   };
 
   timeIn.addEventListener('change', function () {
@@ -136,6 +160,7 @@
     } else {
       price.min = '0';
     }
+    price.max = '1000000';
   };
 
   typeOfPlace.addEventListener('change', function () {
@@ -143,11 +168,15 @@
     price.placeholder = price.min;
   });
 
+  price.addEventListener('change', function () {
+    getadPriceValidated();
+  });
+
   price.addEventListener('invalid', function () {
-    if (price.validity.rangeUnderflow) {
-      price.setCustomValidity('Минимальная цена для данного типа жилья: ' + price.min);
-    } else if (price.validity.rangeOverflow) {
+    if (price.validity.rangeOverflow) {
       price.setCustomValidity('Максимальная цена: ' + price.max);
+    } else if (price.validity.rangeUnderflow) {
+      price.setCustomValidity('Минимальная цена для данного типа жилья: ' + price.min);
     } else if (price.validity.valueMissing) {
       price.setCustomValidity('Обязательное поле');
     } else {
@@ -155,5 +184,66 @@
     }
   });
 
+  // отрисовываются сообщения об успехе и об ошибке
+  var main = document.querySelector('main');
+  var successTemplate = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
+  var errorTemplate = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+
+  var successPopup = successTemplate.cloneNode(true);
+  var errorPopup = errorTemplate.cloneNode(true);
+
+  var showSuccessMessage = function () {
+    main.appendChild(successPopup);
+  };
+
+  successPopup.addEventListener('click', function () {
+    successPopup.style.display = 'none';
+
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === ESCAPE_KEY) {
+      successPopup.style.display = 'none';
+      errorPopup.style.display = 'none';
+    }
+  });
+
+  // сообщение об ошибке, не знаю, правильная ли логика у меня тут
+
+  var showErrorMessage = function (errorMessage) {
+    var message = errorPopup.querySelector('.error__message');
+    message.textContent = errorMessage;
+    main.appendChild(errorPopup);
+  };
+
+  errorPopup.addEventListener('click', function () {
+    errorPopup.style.display = 'none';
+  });
+
+  var errorBtn = errorPopup.querySelector('.error__button');
+  errorBtn.addEventListener('click', function () {
+    errorPopup.style.display = 'none';
+  });
+
+  var resetBtn = form.querySelector('.ad-form__reset');
+  resetBtn.addEventListener('click', function () {
+    form.reset();
+    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
+  });
+
+  // форма отправляется
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.upload(new FormData(form), showSuccessMessage, showErrorMessage);
+    deactivationPage();
+  });
+
 })();
+
 

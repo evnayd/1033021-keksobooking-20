@@ -50,7 +50,8 @@
   };
 
   window.data = {
-    getRandomPins: getRandomPins
+    getRandomPins: getRandomPins,
+    field: field
   };
 })();
 

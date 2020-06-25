@@ -8,7 +8,6 @@
 
   // заполняем пин информацией
   var createNewPin = function (data) {
-
     var pinElement = pinTemplate.cloneNode(true);
     var pinPicture = pinElement.querySelector('img');
 
