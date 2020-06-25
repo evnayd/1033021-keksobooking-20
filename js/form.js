@@ -213,7 +213,11 @@
     }
   });
 
-  var showErrorMessage = function () {
+  // сообщение об ошибке, не знаю, правильная ли логика у меня тут
+
+  var showErrorMessage = function (errorMessage) {
+    var message = errorPopup.querySelector('.error__message');
+    message.textContent = errorMessage;
     main.appendChild(errorPopup);
   };
 

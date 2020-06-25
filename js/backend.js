@@ -40,13 +40,13 @@
       onError('Произошла ошибка отправки данных');
     });
 
-    xhr.open('POST', 'https://javascript.pages.academy/keksobooking');
+    xhr.open('POST', 'https://javascript.pages.academy/1keksobooking');
     xhr.send(data);
   };
 
   window.backend = {
     load: load,
-    upload: upload
+    upload: upload,
   };
 })();
 
