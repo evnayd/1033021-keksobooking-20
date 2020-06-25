@@ -40,7 +40,7 @@
       onError('Произошла ошибка отправки данных');
     });
 
-    xhr.open('POST', 'https://javascript.pages.academy/1keksobooking');
+    xhr.open('POST', 'https://javascript.pages.academy/keksobooking');
     xhr.send(data);
   };
 
