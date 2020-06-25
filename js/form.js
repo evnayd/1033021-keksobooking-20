@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var ESCAPE_KEY = 27;
+  var LEFT_BUTTON = 0;
+
   var formFilters = document.querySelector('.map__filters');
   formFilters.classList.add('ad-form--disabled');
   var formFieldsets = document.querySelectorAll('.ad-form__element');
@@ -37,6 +40,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+
   var activatePage = function () {
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, errorHandler);
@@ -46,12 +50,17 @@
     removeDisabled();
   };
 
-  var deActivePage = function () {
+  var deletePins = function () {
+    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0; i < allPins.length; i++) {
+      allPins[i].remove();
+    }
+  };
+
+  var deactivationPage = function () {
+    deletePins();
     form.reset();
-    setDisabled();
-    window.map.map.classList.add('map--faded');
-    form.classList.add('ad-form--disabled');
-    formFilters.classList.add('ad-form--disabled');form.reset();
+    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     setDisabled();
     window.map.map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
@@ -60,7 +69,7 @@
 
 
   mainPin.addEventListener('mousedown', function (evt) {
-    if (evt.button === 0) {
+    if (evt.button === LEFT_BUTTON) {
       evt.preventDefault();
       activatePage();
     }
@@ -194,10 +203,11 @@
 
   successPopup.addEventListener('click', function () {
     successPopup.style.display = 'none';
+
   });
 
   document.addEventListener('keydown', function (evt) {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === ESCAPE_KEY) {
       successPopup.style.display = 'none';
       errorPopup.style.display = 'none';
     }
@@ -219,6 +229,7 @@
   var resetBtn = form.querySelector('.ad-form__reset');
   resetBtn.addEventListener('click', function () {
     form.reset();
+    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
   });
 
   // форма отправляется
@@ -226,8 +237,9 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.upload(new FormData(form), showSuccessMessage, showErrorMessage);
-    deActivePage();
+    deactivationPage();
   });
+
 })();
 
 
