@@ -50,6 +50,7 @@
     removeDisabled();
   };
 
+  //var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   var deletePins = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0; i < allPins.length; i++) {
@@ -213,7 +214,6 @@
     }
   });
 
-  // сообщение об ошибке, не знаю, правильная ли логика у меня тут
 
   var showErrorMessage = function (errorMessage) {
     var message = errorPopup.querySelector('.error__message');
@@ -244,6 +244,9 @@
     deactivationPage();
   });
 
+  window.form = {
+    deactivationPage: deactivationPage,
+    activatePage: activatePage
+  };
 })();
-
 

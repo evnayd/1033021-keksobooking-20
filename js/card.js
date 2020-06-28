@@ -1,14 +1,13 @@
 'use strict';
 (function () {
   var cardTemplate = document.querySelector('#card')
-.content
-.querySelector('.map__card');
+    .content
+    .querySelector('.map__card');
+  var cardCopy = cardTemplate.cloneNode(true);
 
-
-  var getPinCard = function (data) {
-    var cardCopy = cardTemplate.cloneNode(true);
-
-    cardCopy.querySelector('.popup__title').textContent = data.offer.title;
+  var getPinCard = function () {
+    cardCopy.querySelector('.popup__title').textContent = 'Ehf';
+    /*cardCopy.querySelector('.popup__title').textContent = data.offer.title;
     cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
     cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
 
@@ -40,18 +39,55 @@
     cardPhotos.innerHTML = '';
     cardPhotos.appendChild(picFragment);
 
-    cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
+    // cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;*/
     return cardCopy;
   };
 
+  getPinCard();
+
+  var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   var renderCard = function () {
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(getPinCard(window.map.pins[0]));
-    window.map.pinField.appendChild(fragment);
+    for (var i = 0; i < allPins.length; i++) {
+      fragment.appendChild(getPinCard(allPins[i]));
+      window.data.field.appendChild(fragment);
+    }
   };
+
   // renderCard();
+
+  for (var i = 0; i < allPins.length; i++) {
+    allPins[i].addEventListener('click', function (evt) {
+      evt.preventDefault();
+      renderCard();
+    });
+  }
+
+  for (var j = 0; j < allPins.length; j++) {
+    allPins[j].addEventListener('keydown', function (evt) {
+      if (evt.key === 'Enter') {
+        evt.preventDefault();
+        renderCard();
+      }
+    });
+  }
+
+  var closeCardBtn = cardCopy.querySelector('.popup__close');
+
+  closeCardBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    cardCopy.remove();
+  });
+
+  cardCopy.addEventListener('mousedown', function (evt) {
+    if (evt.button === 27) {
+      evt.preventDefault();
+      cardCopy.remove();
+    }
+  });
+
   window.card = {
-    renderCard: renderCard,
+    getPinCard: getPinCard,
+    renderCard: renderCard
   };
 })();
-
