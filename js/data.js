@@ -49,8 +49,46 @@
     return PIN_LIST;
   };
 
+  /*var randomPin = {
+    'photos': window.utils.getRandomArray(PICS_LIST)
+  };
+
+  var getRandomPins = function () {
+    for (var i = 1; i <= PINS_NUMBER; i++) {
+      //var locationX = window.utils.getRandomNumber(MIN_X, window.utils.getRandomNumber(GAP, field.offsetWidth - GAP));
+      //var locationY = window.utils.getRandomNumber(MIN_Y, MAX_Y);
+      PIN_LIST.push(randomPin(i + 1));
+    }
+    return PIN_LIST;
+  };
+
+  var author = {
+    // 'avatar': 'img/avatars/user0' + '.png'
+  };
+
+  var location = {
+    'x': window.utils.getRandomNumber(0, 1160),
+    'y': window.utils.getRandomNumber(130, 630)
+  };
+
+  var offer = {
+    'title': window.utils.getRandomElement(TITLE_LIST),
+    'address': location.x + ', ' + location.y,
+    'price': window.utils.getRandomNumber(10000, 50000),
+    'type': window.utils.getRandomElement(TYPE_LIST),
+    'rooms': window.utils.getRandomNumber(1, 3),
+    'guests': window.utils.getRandomNumber(1, 2),
+    'checkin': window.utils.getRandomElement(CHECKIN_LIST),
+    'checkout': window.utils.getRandomElement(CHECKOUT_LIST),
+    'features': featersList.join(', '),
+    'description': window.utils.getRandomElement(DESCRIPTION_LIST),
+    'photos': window.utils.getRandomArray(PICS_LIST)
+  };*/
+
+
   window.data = {
     getRandomPins: getRandomPins,
     field: field
+    // randomPin: randomPin
   };
 })();

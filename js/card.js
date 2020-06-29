@@ -6,9 +6,11 @@
   var cardCopy = cardTemplate.cloneNode(true);
 
   var getPinCard = function () {
-    cardCopy.querySelector('.popup__title').textContent = 'Ehf';
-    /*cardCopy.querySelector('.popup__title').textContent = data.offer.title;
-    cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
+    // cardCopy.querySelector('.popup__title').textContent = 'Ehf';
+    //cardCopy.querySelector('.popup__title').textContent = window.data.offer.title;
+    // cardCopy.querySelector('.popup__title').textContent = window.utils.getRandomElement(window.data.TITLE_LIST);
+    cardCopy.querySelector('.popup__title').textContent = window.utils.getRandomElement(['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты']);
+    /*cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
     cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
 
     var type = cardCopy.querySelector('.popup__type');
@@ -43,34 +45,27 @@
     return cardCopy;
   };
 
+  /*var getPinCard = function () {
+    var adTitle = cardCopy.querySelector('.popup__title');
+    var adAdress = cardCopy.querySelector('.popup__text--address');
+    var adPrice = cardCopy.querySelector('.popup__text--price');
+    var adType = cardCopy.querySelector('.popup__type');
+    var adCapacity = cardCopy.querySelector('.popup__text--capacity');
+    var adTime = cardCopy.querySelector('.popup__text--time');
+    var adfeaters = cardCopy.querySelector('.popup__features');
+    var adAvatar = cardCopy.querySelector('.popup__avatar');*/
+
   getPinCard();
 
-  var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
   var renderCard = function () {
+    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < allPins.length; i++) {
       fragment.appendChild(getPinCard(allPins[i]));
       window.data.field.appendChild(fragment);
     }
   };
-
-  // renderCard();
-
-  for (var i = 0; i < allPins.length; i++) {
-    allPins[i].addEventListener('click', function (evt) {
-      evt.preventDefault();
-      renderCard();
-    });
-  }
-
-  for (var j = 0; j < allPins.length; j++) {
-    allPins[j].addEventListener('keydown', function (evt) {
-      if (evt.key === 'Enter') {
-        evt.preventDefault();
-        renderCard();
-      }
-    });
-  }
 
   var closeCardBtn = cardCopy.querySelector('.popup__close');
 
@@ -79,8 +74,9 @@
     cardCopy.remove();
   });
 
-  cardCopy.addEventListener('mousedown', function (evt) {
-    if (evt.button === 27) {
+
+  closeCardBtn.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.form.ESCAPE_KEY) {
       evt.preventDefault();
       cardCopy.remove();
     }
