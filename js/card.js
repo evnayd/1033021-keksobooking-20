@@ -5,65 +5,88 @@
     .querySelector('.map__card');
   var cardCopy = cardTemplate.cloneNode(true);
 
+  var adTitle = cardCopy.querySelector('.popup__title');
+  var adAdress = cardCopy.querySelector('.popup__text--address');
+  var adPrice = cardCopy.querySelector('.popup__text--price');
+  var adType = cardCopy.querySelector('.popup__type');
+  var adCapacity = cardCopy.querySelector('.popup__text--capacity');
+  var adTime = cardCopy.querySelector('.popup__text--time');
+  var adFeaters = cardCopy.querySelector('.popup__features');
+  var adAvatar = cardCopy.querySelector('.popup__avatar');
+  var adDescription = cardCopy.querySelector('.popup__description');
+  var adPhotos = cardCopy.querySelector('.popup__photos');
+
+  /*
+  var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];                                             var findRandom = function (){ for (var i = 0; i < 8; i++)                     var randomPin = {
+        'offer': {
+          'title': window.utils.getRandomElement(TITLE_LIST),
+      }};}
+
+var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];
+
+var findRandom = function () {
+  for (var i = 0; i < 8; i++)  {            var randomPin = {
+ 'title': getRandomElement(TITLE_LIST)
+  }
+  }
+  return randomPin;
+ };
+
+console.log(findRandom(TITLE_LIST));
+  */
+
   var getPinCard = function () {
-    // cardCopy.querySelector('.popup__title').textContent = 'Ehf';
-    //cardCopy.querySelector('.popup__title').textContent = window.data.offer.title;
-    // cardCopy.querySelector('.popup__title').textContent = window.utils.getRandomElement(window.data.TITLE_LIST);
-    cardCopy.querySelector('.popup__title').textContent = window.utils.getRandomElement(['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты']);
-    /*cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
-    cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
+    for (var i = 0; i <= window.data.PINS_NUMBER; i++) {
+      adTitle.textContent = window.data.randomPin.offer.title;
+      adAdress.textContent = window.data.randomPin.offer.adress;
+      adPrice.textContent = window.data.randomPin.offer.price + '₽/ночь';
 
-    var type = cardCopy.querySelector('.popup__type');
-    type.textContent = 'Квартира';
-    if (data.offer.type === 'bungalo') {
-      type.textContent = 'Бунгало';
-    } else if (data.offer.type === 'palace') {
-      type.textContent = 'Дворец';
-    } else if (data.offer.type === 'house') {
-      type.textContent = 'Дoм';
+      adType.textContent = 'Квартира';
+      if (window.data.randomPin.offer.type === 'bungalo') {
+        adType.textContent = 'Бунгало';
+      } else if (window.data.randomPin.offer.typee === 'palace') {
+        adType.textContent = 'Дворец';
+      } else if (window.data.randomPin.offer.type === 'house') {
+        adType.textContent = 'Дoм';
+      }
+
+      adCapacity.textContent = window.data.randomPin.offer.rooms + ' комнаты для ' + window.data.randomPin.offer.guests + ' гостей';
+      adTime.textContent = ' Заезд после ' + window.data.randomPin.offer.checkin + ', выезд до ' + window.data.randomPin.offer.checkout;
+      adFeaters.textContent = window.data.randomPin.offer.features;
+      adDescription.textContent = window.data.randomPin.offer.description;
+
+      var picFragment = document.createDocumentFragment();
+      for (var j = 0; j < window.data.randomPin.offer.photos.length; j++) {
+        var cardPhoto = document.createElement('img');
+        cardPhoto.src = window.data.randomPin.offer.photos[j];
+        cardPhoto.width = 45;
+        cardPhoto.height = 44;
+        picFragment.appendChild(cardPhoto);
+      }
+
+      adPhotos.innerHTML = '';
+      adPhotos.appendChild(picFragment);
+
+    //adAvatar.textContent = data.author.avatar;
+  //}{
     }
-
-    cardCopy.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
-    cardCopy.querySelector('.popup__text--time').textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-    cardCopy.querySelector('.popup__features').textContent = data.offer.features;
-    cardCopy.querySelector('.popup__description').textContent = data.offer.description;
-
-    var picFragment = document.createDocumentFragment();
-    for (var j = 0; j < data.offer.photos.length; j++) {
-      var cardPhoto = document.createElement('img');
-      cardPhoto.src = data.offer.photos[j];
-      cardPhoto.width = 45;
-      cardPhoto.height = 44;
-      picFragment.appendChild(cardPhoto);
-    }
-
-    var cardPhotos = cardCopy.querySelector('.popup__photos');
-    cardPhotos.innerHTML = '';
-    cardPhotos.appendChild(picFragment);
-
-    // cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;*/
     return cardCopy;
   };
 
-  /*var getPinCard = function () {
-    var adTitle = cardCopy.querySelector('.popup__title');
-    var adAdress = cardCopy.querySelector('.popup__text--address');
-    var adPrice = cardCopy.querySelector('.popup__text--price');
-    var adType = cardCopy.querySelector('.popup__type');
-    var adCapacity = cardCopy.querySelector('.popup__text--capacity');
-    var adTime = cardCopy.querySelector('.popup__text--time');
-    var adfeaters = cardCopy.querySelector('.popup__features');
-    var adAvatar = cardCopy.querySelector('.popup__avatar');*/
-
-  getPinCard();
 
 
   var renderCard = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < allPins.length; i++) {
+    for (var i = 1; i <= window.data.PINS_NUMBER; i++) {
       fragment.appendChild(getPinCard(allPins[i]));
       window.data.field.appendChild(fragment);
+    }
+  };
+
+  var closeCard = function () {
+    if (cardCopy) {
+      cardCopy.remove();
     }
   };
 
@@ -84,6 +107,7 @@
 
   window.card = {
     getPinCard: getPinCard,
-    renderCard: renderCard
+    renderCard: renderCard,
+    closeCard: closeCard
   };
 })();

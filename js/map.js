@@ -5,16 +5,6 @@
   var map = document.querySelector('.map');
 
   // рисуем пины
-
-  /*var renderCard = function () {
-    var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < allPins.length; i++) {
-      fragment.appendChild(window.card.getPinCard(allPins[i]));
-      window.data.field.appendChild(fragment);
-    }
-  };*/
-
   var renderPins = function (pins) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < pins.length; i++) {
@@ -25,6 +15,7 @@
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var j = 0; j < allPins.length; j++) {
       allPins[j].addEventListener('click', function (evt) {
+        window.card.closeCard(); // проверка, чтобы не открывалась новая карточка, если уже открыта одна
         evt.preventDefault();
         window.card.renderCard();
       });
