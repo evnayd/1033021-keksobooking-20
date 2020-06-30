@@ -16,25 +16,8 @@
   var adDescription = cardCopy.querySelector('.popup__description');
   var adPhotos = cardCopy.querySelector('.popup__photos');
 
-  /*
-  var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];                                             var findRandom = function (){ for (var i = 0; i < 8; i++)                     var randomPin = {
-        'offer': {
-          'title': window.utils.getRandomElement(TITLE_LIST),
-      }};}
 
-var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];
-
-var findRandom = function () {
-  for (var i = 0; i < 8; i++)  {            var randomPin = {
- 'title': getRandomElement(TITLE_LIST)
-  }
-  }
-  return randomPin;
- };
-
-console.log(findRandom(TITLE_LIST));
-  */
-
+  // таким образом отрисовываются разные карточки только если перезагрузить страницу, не знаю как поправить
   var getPinCard = function () {
     for (var i = 0; i <= window.data.PINS_NUMBER; i++) {
       adTitle.textContent = window.data.randomPin.offer.title;
@@ -72,8 +55,6 @@ console.log(findRandom(TITLE_LIST));
     }
     return cardCopy;
   };
-
-
 
   var renderCard = function () {
     var allPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
