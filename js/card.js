@@ -1,31 +1,41 @@
 'use strict';
 (function () {
   var cardTemplate = document.querySelector('#card')
-.content
-.querySelector('.map__card');
+    .content
+   .querySelector('.map__card');
+
+  var cardCopy = cardTemplate.cloneNode(true);
+
+  var adTitle = cardCopy.querySelector('.popup__title');
+  var adAdress = cardCopy.querySelector('.popup__text--address');
+  var adPrice = cardCopy.querySelector('.popup__text--price');
+  var adType = cardCopy.querySelector('.popup__type');
+  var adCapacity = cardCopy.querySelector('.popup__text--capacity');
+  var adTime = cardCopy.querySelector('.popup__text--time');
+  var adFeaters = cardCopy.querySelector('.popup__features');
+  var adAvatar = cardCopy.querySelector('.popup__avatar');
+  var adDescription = cardCopy.querySelector('.popup__description');
+  var adPhotos = cardCopy.querySelector('.popup__photos');
 
 
   var getPinCard = function (data) {
-    var cardCopy = cardTemplate.cloneNode(true);
+    adTitle.textContent = data.offer.title;
+    adAdress.textContent = data.offer.adress;
+    adPrice.textContent = data.offer.price + '₽/ночь';
 
-    cardCopy.querySelector('.popup__title').textContent = data.offer.title;
-    cardCopy.querySelector('.popup__text--address').textContent = data.offer.adress;
-    cardCopy.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
-
-    var type = cardCopy.querySelector('.popup__type');
-    type.textContent = 'Квартира';
+    adType.textContent = 'Квартира';
     if (data.offer.type === 'bungalo') {
-      type.textContent = 'Бунгало';
+      adType.textContent = 'Бунгало';
     } else if (data.offer.type === 'palace') {
-      type.textContent = 'Дворец';
+      adType.textContent = 'Дворец';
     } else if (data.offer.type === 'house') {
-      type.textContent = 'Дoм';
+      adType.textContent = 'Дoм';
     }
 
-    cardCopy.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
-    cardCopy.querySelector('.popup__text--time').textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-    cardCopy.querySelector('.popup__features').textContent = data.offer.features;
-    cardCopy.querySelector('.popup__description').textContent = data.offer.description;
+    adCapacity.textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
+    adTime.textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
+    adFeaters.textContent = data.offer.features;
+    adDescription.textContent = data.offer.description;
 
     var picFragment = document.createDocumentFragment();
     for (var j = 0; j < data.offer.photos.length; j++) {
@@ -33,25 +43,48 @@
       cardPhoto.src = data.offer.photos[j];
       cardPhoto.width = 45;
       cardPhoto.height = 44;
+      cardPhoto.style.margin = 2 + 'px';
       picFragment.appendChild(cardPhoto);
     }
 
-    var cardPhotos = cardCopy.querySelector('.popup__photos');
-    cardPhotos.innerHTML = '';
-    cardPhotos.appendChild(picFragment);
+    adPhotos.innerHTML = '';
+    adPhotos.appendChild(picFragment);
+    adAvatar.src = data.author.avatar;
 
-    cardCopy.querySelector('.popup__avatar').textContent = data.author.avatar;
+    adAvatar.src = data.author.avatar;
     return cardCopy;
   };
 
-  var renderCard = function () {
+  var renderCard = function (data) {
     var fragment = document.createDocumentFragment();
-    fragment.appendChild(getPinCard(window.map.pins[0]));
-    window.map.pinField.appendChild(fragment);
+    fragment.appendChild(window.card.getPinCard(data));
+    window.map.field.appendChild(fragment);
   };
-  // renderCard();
+
+  var closeCardBtn = cardCopy.querySelector('.popup__close');
+
+  closeCardBtn.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    cardCopy.remove();
+  });
+
+
+  closeCardBtn.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === window.form.ESCAPE_KEY) {
+      evt.preventDefault();
+      cardCopy.remove();
+    }
+  });
+
+  var closeCard = function () {
+    if (!cardCopy === null) {
+      cardCopy.remove();
+    }
+  };
+
   window.card = {
+    getPinCard: getPinCard,
     renderCard: renderCard,
+    closeCard: closeCard
   };
 })();
-

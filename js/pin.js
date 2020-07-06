@@ -17,6 +17,16 @@
     pinPicture.src = data.author.avatar;
     pinPicture.alt = data.offer.title;
 
+    pinElement.addEventListener('click', function (evt) {
+      window.card.closeCard();
+      window.card.renderCard(data);
+
+      if (evt.keyCode === 'enter') {
+        window.card.closeCard();
+        window.card.renderCard(data);
+      }
+    });
+
     return pinElement;
   };
 

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var GAP = 20;
+  /* var GAP = 20;
   var TITLE_LIST = ['Чудесный уголок', 'Лучший вид на город', 'Тихое место', 'Отдых вашей мечты'];
   var TYPE_LIST = ['palace', 'flat', 'house', 'bungalo'];
   var CHECKIN_LIST = ['12:00', '13:00', '14:00'];
@@ -14,9 +14,9 @@
   var MIN_Y = 130;
   var MAX_Y = 630;
   var MIN_X = GAP;
-  var field = document.querySelector('.map__pins');
 
-  var featersList = window.utils.getRandomArray(FEATERS);
+
+ /* var featersList = window.utils.getRandomArray(FEATERS);
   // заводим объекты с описанием жилья
   var getRandomPins = function () {
     for (var i = 1; i <= PINS_NUMBER; i++) {
@@ -50,8 +50,7 @@
   };
 
   window.data = {
-    getRandomPins: getRandomPins,
-    field: field
-  };
+    // getRandomPins: getRandomPins,
+    PINS_NUMBER: PINS_NUMBER,
+  }; */
 })();
-

@@ -213,7 +213,6 @@
     }
   });
 
-  // сообщение об ошибке, не знаю, правильная ли логика у меня тут
 
   var showErrorMessage = function (errorMessage) {
     var message = errorPopup.querySelector('.error__message');
@@ -244,6 +243,10 @@
     deactivationPage();
   });
 
+  window.form = {
+    deactivationPage: deactivationPage,
+    activatePage: activatePage,
+    ESCAPE_KEY: ESCAPE_KEY
+  };
 })();
-
 
