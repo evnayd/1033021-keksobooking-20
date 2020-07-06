@@ -247,7 +247,7 @@
     deactivationPage: deactivationPage,
     activatePage: activatePage,
     ESCAPE_KEY: ESCAPE_KEY,
-    mainPin:  mainPin
+    mainPin: mainPin
   };
 })();
 
