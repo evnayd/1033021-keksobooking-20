@@ -42,6 +42,7 @@
 
 
   var activatePage = function () {
+    adressInput.setAttribute('disabled', 'disabled');
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, errorHandler);
     window.map.map.classList.remove('map--faded');
@@ -246,7 +247,8 @@
   window.form = {
     deactivationPage: deactivationPage,
     activatePage: activatePage,
-    ESCAPE_KEY: ESCAPE_KEY
+    ESCAPE_KEY: ESCAPE_KEY,
+    mainPin: mainPin
   };
 })();
 
