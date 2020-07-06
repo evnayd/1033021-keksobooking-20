@@ -15,8 +15,6 @@
       y: evt.clientY
     };
 
-
-
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
