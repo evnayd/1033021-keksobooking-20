@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var MIN_Y = 130;
+  var MAX_Y = 630;
+
   window.form.mainPin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
     var startCoords = {
@@ -22,7 +25,7 @@
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
-      if (moveEvt.clientX < window.map.field.offsetWidth && moveEvt.clientY < window.map.field.offsetHeight) {
+      if (moveEvt.clientX < window.map.field.offsetWidth && moveEvt.clientY < MAX_Y && moveEvt.clientY > MIN_Y) {
         window.form.mainPin.style.top = (window.form.mainPin.offsetTop - shift.y) + 'px';
         window.form.mainPin.style.left = (window.form.mainPin.offsetLeft - shift.x) + 'px';
       }
