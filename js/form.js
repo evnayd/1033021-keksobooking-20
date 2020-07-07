@@ -42,7 +42,7 @@
 
 
   var activatePage = function () {
-    adressInput.setAttribute('disabled', 'disabled');
+    adressInput.setAttribute('readonly', 'readonly');
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
     window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, errorHandler);
     window.map.map.classList.remove('map--faded');
