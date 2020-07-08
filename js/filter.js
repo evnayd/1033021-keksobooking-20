@@ -2,37 +2,26 @@
 
 (function () {
 
+  var MAX_PINS = 5;
+
   var offerType = document.querySelector('#housing-type');
 
-
-  var pins = [];
   var successHandler = function (data) {
-    pins = data;
-
     var updatePins = function () {
-      var sameTypepins = pins.filter(function (it) {
+      var sameTypePins = data.filter(function (it) {
         return it.offer.type === offerType.value;
       });
-      window.map.renderPins(sameTypepins);
+      for (var i = 0; i <= MAX_PINS; i++) {
+        window.map.renderPins(sameTypePins);
+      }
     };
-
     window.form.formFilters.addEventListener('change', function () {
+      window.card.cardCopy.remove();
       window.form.deletePins();
-      updatePins();
+      updatePins(data);
     });
   };
 
-  var errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
-  };
-
-  window.backend.load('https://javascript.pages.academy/keksobooking/data', successHandler, errorHandler);
+  window.backend.load('https://javascript.pages.academy/keksobooking/data', successHandler, window.backend.errorHandler);
 })();
 
