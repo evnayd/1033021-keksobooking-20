@@ -16,7 +16,7 @@
     };
 
     var onMouseMove = function (moveEvt) {
-      evt.preventDefault();
+      moveEvt.preventDefault();
 
       var shift = {
         x: startCoords.x - moveEvt.clientX,
@@ -47,7 +47,7 @@
     };
 
     var onMouseUp = function (upEvt) {
-      evt.preventDefault();
+      upEvt.preventDefault();
 
       var shift = {
         x: startCoords.x - upEvt.clientX,
