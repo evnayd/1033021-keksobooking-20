@@ -85,6 +85,7 @@
   window.card = {
     getPinCard: getPinCard,
     renderCard: renderCard,
-    closeCard: closeCard
+    closeCard: closeCard,
+    cardCopy: cardCopy
   };
 })();
