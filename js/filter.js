@@ -19,11 +19,11 @@
       });
 
       var sameGuestsNumPins = data.filter(function (it) {
-        return it.offer.guests == offerGuestsNumber.value;
+        return it.offer.guests === +offerGuestsNumber.value;
       });
 
       var sameRoomsPins = data.filter(function (it) {
-        return it.offer.rooms == offerRooms.value;
+        return it.offer.rooms === +offerRooms.value;
         // return it.offer.rooms === offerRooms.value;
       });
 
