@@ -2,12 +2,33 @@
 
 (function () {
 
+  /*<option value="any" selected>Любая</option>
+            <option value="middle">10000 - 50000&#x20bd;</option>
+            <option value="low">до 10000&#x20bd;</option>
+            <option value="high">от 50000&#x20bd;</option>*/
+
   var DEFAULT_VALUE = 'any';
+  var MAX_PINS = 5;
 
   var offerType = document.querySelector('#housing-type');
-
   var offerRooms = document.querySelector('#housing-rooms');
   var offerGuestsNumber = document.querySelector('#housing-guests');
+  var offerPrice = document.querySelector('#housing-price');
+
+  var PRICE = {
+  'low': {
+    from: 0,
+    to: 9999,
+  },
+  'middle': {
+    from: 10000,
+    to: 49999,
+  },
+  'high': {
+    from: 50000,
+    to: 100000,
+  }
+  };
 
   var filterPins = function (data) {
 
@@ -21,7 +42,16 @@
         }
       });
 
-      var sameRoomsPins = sameTypePins.filter(function (it) {
+      var samePricePins = sameTypePins.filter(function (it) {
+        if (offerPrice.value !== DEFAULT_VALUE) {
+          return it.offer.price >= PRICE[offerPrice.value].from &&
+          it.offer.price <= PRICE[offerPrice.value].to;
+        } else {
+          return it;
+        }
+      });
+
+      var sameRoomsPins = samePricePins.filter(function (it) {
         if (offerRooms.value !== DEFAULT_VALUE) {
           return it.offer.rooms === +offerRooms.value;
         } else {
@@ -37,8 +67,7 @@
         }
       });
 
-      // window.map.renderPins(sameGuestsNumPins);
-      window.map.renderPins(sameGuestsNumPins.slice(0, 5));
+      window.map.renderPins(sameGuestsNumPins.slice(0, MAX_PINS));
     };
 
     window.form.formFilters.addEventListener('change', function () {
