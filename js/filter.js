@@ -2,68 +2,44 @@
 
 (function () {
 
-  // var DEFAULT_VALUE = 'any';
-
-  var MAX_PINS = 5;
+  var DEFAULT_VALUE = 'any';
 
   var offerType = document.querySelector('#housing-type');
 
   var offerRooms = document.querySelector('#housing-rooms');
   var offerGuestsNumber = document.querySelector('#housing-guests');
 
-  var successHandler = function (data) {
+  var filterPins = function (data) {
 
     var updatePins = function () {
 
       var sameTypePins = data.filter(function (it) {
-        return it.offer.type === offerType.value;
+        if (offerType.value !== DEFAULT_VALUE) {
+          return it.offer.type === offerType.value;
+        } else {
+          return it;
+        }
       });
 
-      var sameGuestsNumPins = data.filter(function (it) {
-        return it.offer.guests === +offerGuestsNumber.value;
+      var sameRoomsPins = sameTypePins.filter(function (it) {
+        if (offerRooms.value !== DEFAULT_VALUE) {
+          return it.offer.rooms === +offerRooms.value;
+        } else {
+          return it;
+        }
       });
 
-      var sameRoomsPins = data.filter(function (it) {
-        return it.offer.rooms === +offerRooms.value;
+      var sameGuestsNumPins = sameRoomsPins.filter(function (it) {
+        if (offerGuestsNumber.value !== DEFAULT_VALUE) {
+          return it.offer.guests === +offerGuestsNumber.value;
+        } else {
+          return it;
+        }
       });
 
-      var filteredPins = sameGuestsNumPins.concat(sameRoomsPins).concat(sameTypePins);
-      var uniquePins = filteredPins.filter(function (it, i) {
-        return filteredPins.indexOf(it) === i &&
-        it.offer.type === offerType.value &&
-        it.offer.guests === +offerGuestsNumber.value &&
-        it.offer.rooms === +offerRooms.value;
-      });
-
-      for (var i = 0; i <= MAX_PINS; i++) {
-        window.map.renderPins(uniquePins);
-      }
+      // window.map.renderPins(sameGuestsNumPins);
+      window.map.renderPins(sameGuestsNumPins.slice(0, 5));
     };
-
-
-    /* var successHandler = function (data) {
-
-    var updatePins = function () {
-
-      var sameTypePins = data.filter(function (it) {
-        return it.offer.type === offerType.value;
-      });
-
-      var sameGuestsNumPins = data.filter(function (it) {
-        return it.offer.guests === +offerGuestsNumber.value;
-      });
-
-      var sameRoomsPins = data.filter(function (it) {
-        return it.offer.rooms === +offerRooms.value;
-      });
-
-      for (var i = 0; i <= MAX_PINS; i++) {
-       // window.map.renderPins(sameTypePins);
-        window.map.renderPins(sameRoomsPins);
-        //window.map.renderPins(sameTypePins.concat(sameGuestsNumPins).concat(sameRoomsPins));
-      }
-    }; */
-
 
     window.form.formFilters.addEventListener('change', function () {
       window.card.cardCopy.remove();
@@ -72,5 +48,5 @@
     });
   };
 
-  window.backend.load('https://javascript.pages.academy/keksobooking/data', successHandler, window.backend.errorHandler);
+  window.backend.load('https://javascript.pages.academy/keksobooking/data', filterPins, window.backend.errorHandler);
 })();
