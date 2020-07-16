@@ -71,8 +71,6 @@
     }
   });
 
-  // валидация количества гостей и комнат
-
   var roomNum = document.querySelector('#room_number');
   var guestNum = document.querySelector('#capacity');
 
@@ -99,7 +97,6 @@
 
   getRoomValidated();
 
-  // валидация заголовка объявления
   var adTitle = document.querySelector('#title');
 
   var getadTitleValidated = function () {
@@ -118,7 +115,6 @@
     getadTitleValidated();
   });
 
-  // валидация времени заезда и выезда
   var timeIn = form.querySelector('#timein');
   var timeOut = form.querySelector('#timeout');
 
@@ -133,8 +129,6 @@
   timeOut.addEventListener('change', function () {
     getTimeEqual(timeOut, timeIn);
   });
-
-  // валидация минимальной цены
 
   var typeOfPlace = form.querySelector('#type');
   var price = form.querySelector('#price');
@@ -173,7 +167,6 @@
     }
   });
 
-  // отрисовываются сообщения об успехе и об ошибке
   var main = document.querySelector('main');
   var successTemplate = document.querySelector('#success')
   .content
@@ -223,8 +216,6 @@
     form.reset();
     adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
   });
-
-  // форма отправляется
 
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
