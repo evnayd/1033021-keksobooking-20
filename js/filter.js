@@ -2,11 +2,6 @@
 
 (function () {
 
-  /*<option value="any" selected>Любая</option>
-            <option value="middle">10000 - 50000&#x20bd;</option>
-            <option value="low">до 10000&#x20bd;</option>
-            <option value="high">от 50000&#x20bd;</option>*/
-
   var DEFAULT_VALUE = 'any';
   var MAX_PINS = 5;
 
@@ -16,18 +11,18 @@
   var offerPrice = document.querySelector('#housing-price');
 
   var PRICE = {
-  'low': {
-    from: 0,
-    to: 9999,
-  },
-  'middle': {
-    from: 10000,
-    to: 49999,
-  },
-  'high': {
-    from: 50000,
-    to: 100000,
-  }
+    'low': {
+      from: 0,
+      to: 9999,
+    },
+    'middle': {
+      from: 10000,
+      to: 49999,
+    },
+    'high': {
+      from: 50000,
+      to: 100000,
+    }
   };
 
   var filterPins = function (data) {
