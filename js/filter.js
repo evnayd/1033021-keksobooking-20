@@ -9,9 +9,7 @@
   var offerRooms = document.querySelector('#housing-rooms');
   var offerGuestsNumber = document.querySelector('#housing-guests');
   var offerPrice = document.querySelector('#housing-price');
-  //var offerFeaters = document.querySelector('#housing-features');
   var offerFeatures = document.querySelectorAll('.map__checkbox');
-  //console.log(features);
 
   var PRICE = {
     'low': {
@@ -35,45 +33,40 @@
       var sameTypePins = data.filter(function (it) {
         if (offerType.value !== DEFAULT_VALUE) {
           return it.offer.type === offerType.value;
-        } else {
-          return it;
         }
+        return it;
       });
 
       var samePricePins = sameTypePins.filter(function (it) {
         if (offerPrice.value !== DEFAULT_VALUE) {
           return it.offer.price >= PRICE[offerPrice.value].from &&
           it.offer.price <= PRICE[offerPrice.value].to;
-        } else {
-          return it;
         }
+        return it;
       });
 
       var sameRoomsPins = samePricePins.filter(function (it) {
         if (offerRooms.value !== DEFAULT_VALUE) {
           return it.offer.rooms === +offerRooms.value;
-        } else {
-          return it;
         }
+        return it;
       });
 
       var sameGuestsNumPins = sameRoomsPins.filter(function (it) {
         if (offerGuestsNumber.value !== DEFAULT_VALUE) {
           return it.offer.guests === +offerGuestsNumber.value;
-        } else {
-          return it;
         }
+        return it;
       });
 
-        var sameFeatersPins = sameGuestsNumPins.filter(function (it) {
-          for ( var i = 0; i < offerFeatures.length; i++ )
-          if (offerFeatures[i].checked){
-            return it.offer.features === offerFeatures[i].value;
-            //console.log(offerFeatures[i].value);
+      var sameFeatersPins = sameGuestsNumPins.filter(function (it) {
+        for (var i = 0; i < offerFeatures.length; i++) {
+          if (offerFeatures[i].checked) {
+            return it.offer.features.includes(offerFeatures[i].value);
           }
-        });
-
-console.log(sameFeatersPins);
+        }
+        return it;
+      });
 
       window.map.renderPins(sameFeatersPins.slice(0, MAX_PINS));
     };
