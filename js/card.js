@@ -17,7 +17,6 @@
   var adDescription = cardCopy.querySelector('.popup__description');
   var adPhotos = cardCopy.querySelector('.popup__photos');
 
-
   var getPinCard = function (data) {
     adTitle.textContent = data.offer.title;
     adAdress.textContent = data.offer.adress;
@@ -36,9 +35,7 @@
     adTime.textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
     adDescription.textContent = data.offer.description;
 
-
-
-  var featureFragment = document.createDocumentFragment();
+    var featureFragment = document.createDocumentFragment();
 
     for (var k = 0; k < data.offer.features.length; k++) {
       var cardFeature = document.createElement('li');
@@ -49,7 +46,6 @@
 
     adFeatures.innerHTML = '';
     adFeatures.appendChild(featureFragment);
-    console.log(adFeatures);
 
     var picFragment = document.createDocumentFragment();
     for (var j = 0; j < data.offer.photos.length; j++) {
