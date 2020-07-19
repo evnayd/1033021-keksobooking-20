@@ -9,7 +9,13 @@
   var offerRooms = document.querySelector('#housing-rooms');
   var offerGuestsNumber = document.querySelector('#housing-guests');
   var offerPrice = document.querySelector('#housing-price');
-  var offerFeatures = document.querySelectorAll('.map__checkbox');
+  // var offerFeatures = document.querySelectorAll('.map__checkbox');
+  var filterWifi = document.querySelector('#filter-wifi');
+  var filterDishWasher = document.querySelector('#filter-dishwasher');
+  var filterParking = document.querySelector('#filter-parking');
+  var filterWasher = document.querySelector('#filter-washer');
+  var filterElevator = document.querySelector('#filter-elevator');
+  var filterConditioner = document.querySelector('#filter-conditioner');
 
   var PRICE = {
     'low': {
@@ -59,16 +65,52 @@
         return it;
       });
 
-      var sameFeatersPins = sameGuestsNumPins.filter(function (it) {
-        for (var i = 0; i < offerFeatures.length; i++) {
-          if (offerFeatures[i].checked) {
-            return it.offer.features.includes(offerFeatures[i].value);
-          }
+      var wifiPins = sameGuestsNumPins.filter(function (it) {
+        if (filterWifi.checked) {
+          return it.offer.features.includes(filterWifi.value);
         }
         return it;
       });
 
-      window.map.renderPins(sameFeatersPins.slice(0, MAX_PINS));
+      var filterdishwasherPins = wifiPins.filter(function (it) {
+        if (filterDishWasher.checked) {
+          return it.offer.features.includes(filterDishWasher.value);
+        }
+        return it;
+      });
+
+      var filterparkingPins = filterdishwasherPins.filter(function (it) {
+        if (filterParking.checked) {
+          return it.offer.features.includes(filterParking.value);
+        }
+        return it;
+      });
+
+
+      var filterwasherPins = filterparkingPins.filter(function (it) {
+        if (filterWasher.checked) {
+          return it.offer.features.includes(filterWasher.value);
+        }
+        return it;
+      });
+
+      var filterelevatorPins = filterwasherPins.filter(function (it) {
+        if (filterElevator.checked) {
+          return it.offer.features.includes(filterElevator.value);
+        }
+        return it;
+      });
+
+
+      var filterConditionerPins = filterelevatorPins.filter(function (it) {
+        if (filterConditioner.checked) {
+          return it.offer.features.includes(filterConditioner.value);
+        }
+        return it;
+      });
+
+      window.map.renderPins(filterConditionerPins.slice(0, MAX_PINS));
+
     };
 
     window.form.formFilters.addEventListener('change', function () {
