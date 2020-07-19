@@ -13,7 +13,6 @@
   var adCapacity = cardCopy.querySelector('.popup__text--capacity');
   var adTime = cardCopy.querySelector('.popup__text--time');
   var adFeatures = cardCopy.querySelector('.popup__features');
-  //var adFeatures = cardCopy.querySelectorAll('.feature__checkbox');
   var adAvatar = cardCopy.querySelector('.popup__avatar');
   var adDescription = cardCopy.querySelector('.popup__description');
   var adPhotos = cardCopy.querySelector('.popup__photos');
@@ -51,24 +50,6 @@
     adFeatures.innerHTML = '';
     adFeatures.appendChild(featureFragment);
     console.log(adFeatures);
-
-    /*var featureFragment = document.createDocumentFragment();
-    var cardFeatures = document.querySelectorAll('.map__checkbox');
-    console.log(cardFeatures);
-    for (var k = 0; k < adFeatures.length; k++) {
-      //var cardFeature = document.createElement('li');
-      //adFeatures[k].classList.remove('.visually-hidden');
-      console.log(adFeatures);
-      //cardFeature.classList.add('.popup__feature');
-      //cardFeature.classList.add('.popup__feature--' + data.offer.features[k]);
-      featureFragment.appendChild(dFeatures);
-    }
-
-    adFeatures.innerHTML = '';
-    adFeatures.appendChild(featureFragment);
-    console.log(adFeatures);*/
-
-//
 
     var picFragment = document.createDocumentFragment();
     for (var j = 0; j < data.offer.photos.length; j++) {
