@@ -9,7 +9,6 @@
   var offerRooms = document.querySelector('#housing-rooms');
   var offerGuestsNumber = document.querySelector('#housing-guests');
   var offerPrice = document.querySelector('#housing-price');
-  // var offerFeatures = document.querySelectorAll('.map__checkbox');
   var filterWifi = document.querySelector('#filter-wifi');
   var filterDishWasher = document.querySelector('#filter-dishwasher');
   var filterParking = document.querySelector('#filter-parking');
