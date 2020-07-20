@@ -12,11 +12,10 @@
   var adType = cardCopy.querySelector('.popup__type');
   var adCapacity = cardCopy.querySelector('.popup__text--capacity');
   var adTime = cardCopy.querySelector('.popup__text--time');
-  var adFeaters = cardCopy.querySelector('.popup__features');
+  var adFeatures = cardCopy.querySelector('.popup__features');
   var adAvatar = cardCopy.querySelector('.popup__avatar');
   var adDescription = cardCopy.querySelector('.popup__description');
   var adPhotos = cardCopy.querySelector('.popup__photos');
-
 
   var getPinCard = function (data) {
     adTitle.textContent = data.offer.title;
@@ -34,8 +33,19 @@
 
     adCapacity.textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
     adTime.textContent = ' Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-    adFeaters.textContent = data.offer.features;
     adDescription.textContent = data.offer.description;
+
+    var featureFragment = document.createDocumentFragment();
+
+    for (var k = 0; k < data.offer.features.length; k++) {
+      var cardFeature = document.createElement('li');
+      cardFeature.classList.add('popup__feature');
+      cardFeature.classList.add('popup__feature--' + data.offer.features[k]);
+      featureFragment.appendChild(cardFeature);
+    }
+
+    adFeatures.innerHTML = '';
+    adFeatures.appendChild(featureFragment);
 
     var picFragment = document.createDocumentFragment();
     for (var j = 0; j < data.offer.photos.length; j++) {
@@ -49,9 +59,9 @@
 
     adPhotos.innerHTML = '';
     adPhotos.appendChild(picFragment);
-    adAvatar.src = data.author.avatar;
 
     adAvatar.src = data.author.avatar;
+
     return cardCopy;
   };
 
