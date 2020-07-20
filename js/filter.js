@@ -71,14 +71,14 @@
         return it;
       });
 
-      var filterdishwasherPins = wifiPins.filter(function (it) {
+      var filterDishwasherPins = wifiPins.filter(function (it) {
         if (filterDishWasher.checked) {
           return it.offer.features.includes(filterDishWasher.value);
         }
         return it;
       });
 
-      var filterparkingPins = filterdishwasherPins.filter(function (it) {
+      var filterParkingPins = filterDishwasherPins.filter(function (it) {
         if (filterParking.checked) {
           return it.offer.features.includes(filterParking.value);
         }
@@ -86,14 +86,14 @@
       });
 
 
-      var filterwasherPins = filterparkingPins.filter(function (it) {
+      var filterWasherPins = filterParkingPins.filter(function (it) {
         if (filterWasher.checked) {
           return it.offer.features.includes(filterWasher.value);
         }
         return it;
       });
 
-      var filterelevatorPins = filterwasherPins.filter(function (it) {
+      var filterElevatorPins = filterWasherPins.filter(function (it) {
         if (filterElevator.checked) {
           return it.offer.features.includes(filterElevator.value);
         }
@@ -101,7 +101,7 @@
       });
 
 
-      var filterConditionerPins = filterelevatorPins.filter(function (it) {
+      var filterConditionerPins = filterElevatorPins.filter(function (it) {
         if (filterConditioner.checked) {
           return it.offer.features.includes(filterConditioner.value);
         }
