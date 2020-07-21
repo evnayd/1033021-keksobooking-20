@@ -31,7 +31,7 @@
 
   var activatePage = function () {
     adressInput.setAttribute('readonly', 'readonly');
-    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
+    adressInput.value = mainPin.offsetLeft + ', ' + mainPin.offsetTop;
     window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, window.backend.errorHandler);
     window.map.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
