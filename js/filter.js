@@ -3,7 +3,6 @@
 (function () {
 
   var DEFAULT_VALUE = 'any';
-  var MAX_PINS = 5;
 
   var offerType = document.querySelector('#housing-type');
   var offerRooms = document.querySelector('#housing-rooms');
@@ -108,8 +107,7 @@
         return it;
       });
 
-      window.map.renderPins(filterConditionerPins.slice(0, MAX_PINS));
-
+      window.map.renderPins(filterConditionerPins);
     };
 
     window.form.formFilters.addEventListener('change', function () {
@@ -120,4 +118,5 @@
   };
 
   window.backend.load('https://javascript.pages.academy/keksobooking/data', filterPins, window.backend.errorHandler);
+
 })();
