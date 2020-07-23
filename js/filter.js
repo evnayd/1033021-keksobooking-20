@@ -113,10 +113,13 @@
     window.form.formFilters.addEventListener('change', function () {
       window.card.cardCopy.remove();
       window.form.deletePins();
-      updatePins(data);
+      updatePins();
     });
   };
 
-  window.backend.load('https://javascript.pages.academy/keksobooking/data', filterPins, window.backend.errorHandler);
+  window.filter = {
+    filterPins: filterPins
+  };
 
 })();
+

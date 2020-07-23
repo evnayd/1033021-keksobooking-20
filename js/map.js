@@ -6,10 +6,10 @@
   var map = document.querySelector('.map');
   var field = document.querySelector('.map__pins');
 
-  var renderPins = function (pins) {
+  var renderPins = function (data) {
     var fragment = document.createDocumentFragment();
-       for (var i = 0; i < pins.length && i < MAX_PINS; i++) {
-      fragment.appendChild(window.pin.createNewPin(pins[i]));
+    for (var i = 0; i < data.length && i < MAX_PINS; i++) {
+      fragment.appendChild(window.pin.createNewPin(data[i]));
     }
     field.appendChild(fragment);
   };

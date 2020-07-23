@@ -25,7 +25,6 @@
         window.card.renderCard(data);
       }
     });
-
     return pinElement;
   };
 

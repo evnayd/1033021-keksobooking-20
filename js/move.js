@@ -36,8 +36,8 @@
         window.form.mainPin.style.left = (window.form.mainPin.offsetLeft - shift.x) + 'px';
       }
 
-      if (window.form.mainPin.offsetTop - shift.y < MIN_Y - PIN_HEIGHT) {
-        window.form.mainPin.style.top = MIN_Y - PIN_HEIGHT + 'px';
+      if (window.form.mainPin.offsetTop - shift.y < MIN_Y + PIN_HEIGHT) {
+        window.form.mainPin.style.top = MIN_Y + PIN_HEIGHT + 'px';
       } else if (window.form.mainPin.offsetTop - shift.y > MAX_Y - PIN_HEIGHT) {
         window.form.mainPin.style.top = MAX_Y - PIN_HEIGHT + 'px';
       } else {
@@ -49,18 +49,7 @@
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      var shift = {
-        x: startCoords.x - upEvt.clientX,
-        y: startCoords.y - upEvt.clientY
-      };
-
-      startCoords = {
-        x: upEvt.clientX,
-        y: upEvt.clientY
-      };
-
-      window.form.mainPin.style.top = (window.form.mainPin.offsetTop - shift.y) + 'px';
-      window.form.mainPin.style.left = (window.form.mainPin.offsetLeft - shift.x) + 'px';
+      window.form.adressInput.value = window.form.mainPin.offsetLeft + ', ' + window.form.mainPin.offsetTop;
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

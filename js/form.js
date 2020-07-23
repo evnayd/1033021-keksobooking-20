@@ -3,6 +3,9 @@
 (function () {
   var ESCAPE_KEY = 27;
   var LEFT_BUTTON = 0;
+  var START_PLACEHOLDER = '1000';
+  var MAX_ROOMS = '100';
+  var NO_GUESTS = '0';
 
   var formFilters = document.querySelector('.map__filters');
   formFilters.classList.add('ad-form--disabled');
@@ -28,15 +31,22 @@
 
   var adressInput = document.querySelector('#address');
 
+  var successLoad = function (data) {
+    window.map.renderPins(data);
+    window.filter.filterPins(data);
+  };
 
   var activatePage = function () {
     adressInput.setAttribute('readonly', 'readonly');
     adressInput.value = mainPin.offsetLeft + ', ' + mainPin.offsetTop;
-    window.backend.load('https://javascript.pages.academy/keksobooking/data', window.map.renderPins, window.backend.errorHandler);
+    window.backend.load('https://javascript.pages.academy/keksobooking/data', successLoad, window.backend.errorHandler);
     window.map.map.classList.remove('map--faded');
     form.classList.remove('ad-form--disabled');
     formFilters.classList.remove('ad-form--disabled');
     removeDisabled();
+    price.placeholder = START_PLACEHOLDER;
+    mainPin.removeEventListener('mousedown', onMainPinClick);
+    mainPin.removeEventListener('keydown', onMainPinKeyPress);
   };
 
   var deletePins = function () {
@@ -49,34 +59,38 @@
   var deactivationPage = function () {
     deletePins();
     form.reset();
-    adressInput.value = mainPin.offsetLeft + ' ' + mainPin.offsetTop;
+    adressInput.value = mainPin.offsetLeft + ', ' + mainPin.offsetTop;
     setDisabled();
     window.map.map.classList.add('map--faded');
     form.classList.add('ad-form--disabled');
     formFilters.classList.add('ad-form--disabled');
+    mainPin.addEventListener('mousedown', onMainPinClick);
+    mainPin.addEventListener('keydown', onMainPinKeyPress);
   };
 
-
-  mainPin.addEventListener('mousedown', function (evt) {
+  var onMainPinClick = function (evt) {
     if (evt.button === LEFT_BUTTON) {
       evt.preventDefault();
       activatePage();
     }
-  });
+  };
 
-  mainPin.addEventListener('keydown', function (evt) {
+  var onMainPinKeyPress = function (evt) {
     if (evt.key === 'Enter') {
       evt.preventDefault();
       activatePage();
     }
-  });
+  };
+
+  mainPin.addEventListener('mousedown', onMainPinClick);
+  mainPin.addEventListener('keydown', onMainPinKeyPress);
 
   var roomNum = document.querySelector('#room_number');
   var guestNum = document.querySelector('#capacity');
 
   var getRoomValidated = function () {
-    if (roomNum.value === '100') {
-      roomNum.setCustomValidity('Это предложение не для гостей');
+    if (roomNum.value === MAX_ROOMS && guestNum.value === NO_GUESTS) {
+      roomNum.setCustomValidity('');
     } else if (roomNum.value < guestNum.value) {
       roomNum.setCustomValidity('Недостаточно места для выбранного количества гостей');
     } else if (roomNum.value > guestNum.value) {
@@ -84,7 +98,6 @@
     } else {
       roomNum.setCustomValidity('');
     }
-
   };
 
   roomNum.addEventListener('change', function () {
@@ -229,6 +242,7 @@
     ESCAPE_KEY: ESCAPE_KEY,
     mainPin: mainPin,
     formFilters: formFilters,
+    adressInput: adressInput,
     deletePins: deletePins
   };
 })();
