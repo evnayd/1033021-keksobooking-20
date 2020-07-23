@@ -73,22 +73,26 @@
 
   var closeCardBtn = cardCopy.querySelector('.popup__close');
 
-  closeCardBtn.addEventListener('click', function (evt) {
+  var onCardBtnClick = function (evt) {
     evt.preventDefault();
     cardCopy.remove();
-  });
+  };
 
-
-  closeCardBtn.addEventListener('keydown', function (evt) {
+  var onCardBtnPress = function (evt) {
     if (evt.keyCode === window.form.ESCAPE_KEY) {
       evt.preventDefault();
       cardCopy.remove();
     }
-  });
+  };
+
+  closeCardBtn.addEventListener('click', onCardBtnClick);
+  closeCardBtn.addEventListener('keydown', onCardBtnPress);
 
   var closeCard = function () {
-    if (!cardCopy === null) {
+    if (!cardCopy) {
       cardCopy.remove();
+      closeCardBtn.removeEventListener('click', onCardBtnClick);
+      closeCardBtn.removeEventListener('keydown', onCardBtnPress);
     }
   };
 
